@@ -19,6 +19,17 @@
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/page.css" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Oswald:wght@600&display=swap" rel="stylesheet" />
+
+  <!-- 모바일 감지 리다이렉트 -->
+  <script>
+    (function() {
+      var ua = navigator.userAgent;
+      var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+      window.NETFILE_URL = isMobile
+        ? 'https://m.netfile.co.kr/index.jsp?referer_url=direct&keyid=jaesuni49'
+        : 'https://www.netfile.co.kr/index.jsp?referer_url=direct&keyid=jaesuni49';
+    })();
+  </script>
 </head>
 <body>
 
@@ -136,7 +147,7 @@
       <div class="inline-cta">
         <h3>넷파일 — 코인 1개당 20MB</h3>
         <p>업계 최고 수준 코인 용량 · 10MB코인 유효기간 없음 · 신규 가입 즉시 코인 지급</p>
-        <a href="https://www.netfile.co.kr" class="btn-primary" target="_blank" rel="noopener">넷파일 무료 가입하기 →</a>
+        <a href="#" onclick="goNetfile(event)" class="btn-primary" target="_blank" rel="noopener">넷파일 무료 가입하기 →</a>
       </div>
 
     </div>
@@ -158,5 +169,15 @@
   </footer>
 
   <script src="../js/main.js"></script>
+
+  <script>
+    function goNetfile(e) {
+      e.preventDefault();
+      window.open(window.NETFILE_URL, '_blank', 'noopener');
+    }
+    document.querySelectorAll('.netfile-link').forEach(function(el) {
+      el.addEventListener('click', goNetfile);
+    });
+  </script>
 </body>
 </html>
