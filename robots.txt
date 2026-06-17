@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://netfileyjs-arch.github.io/netfile-guide/sitemap.xml
