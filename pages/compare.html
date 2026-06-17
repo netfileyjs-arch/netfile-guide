@@ -20,6 +20,17 @@
   <link rel="stylesheet" href="../css/page.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Oswald:wght@600&display=swap" rel="stylesheet" />
+
+  <!-- 모바일 감지 리다이렉트 -->
+  <script>
+    (function() {
+      var ua = navigator.userAgent;
+      var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+      window.NETFILE_URL = isMobile
+        ? 'https://m.netfile.co.kr/index.jsp?referer_url=direct&keyid=jaesuni49'
+        : 'https://www.netfile.co.kr/index.jsp?referer_url=direct&keyid=jaesuni49';
+    })();
+  </script>
 </head>
 <body>
 
@@ -31,6 +42,7 @@
         <a href="guide.html">사용법</a>
         <a href="trouble.html">오류 해결</a>
         <a href="coin.html">요금제 정리</a>
+        <a href="#" class="btn-header-cta netfile-link" onclick="goNetfile(event)">🎁 넷파일 2,000코인 무료가입</a>
       </nav>
     </div>
   </header>
@@ -143,7 +155,7 @@
       <div class="inline-cta">
         <h3>넷파일 — 합법 등록 웹하드</h3>
         <p>코인 1개당 20MB, 무제한 용량, 무기한 보관<br>지금 가입하면 코인을 바로 드립니다</p>
-        <a href="https://www.netfile.co.kr" class="btn-primary" target="_blank" rel="noopener">넷파일 무료 가입하기 →</a>
+        <a href="#" onclick="goNetfile(event)" class="btn-primary" target="_blank" rel="noopener">넷파일 무료 가입하기 →</a>
       </div>
 
     </div>
@@ -164,5 +176,15 @@
     </div>
   </footer>
 
+
+  <script>
+    function goNetfile(e) {
+      e.preventDefault();
+      window.open(window.NETFILE_URL, '_blank', 'noopener');
+    }
+    document.querySelectorAll('.netfile-link').forEach(function(el) {
+      el.addEventListener('click', goNetfile);
+    });
+  </script>
 </body>
 </html>
