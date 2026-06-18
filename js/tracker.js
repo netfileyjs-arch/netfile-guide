@@ -1,6 +1,26 @@
 // ── 방문자 트래킹 스크립트 ──
 (function() {
-  const KEY = 'wh_stats';
+  const KEY        = 'wh_stats';
+  const ADMIN_IP   = '123.98.190.115';  // 관리자 IP — 카운트 제외
+
+  // 관리자 IP 여부 확인 (비동기, localStorage 캐시)
+  async function isAdmin() {
+    // 캐시된 IP 먼저 확인 (1시간 유효)
+    const cached = localStorage.getItem('wh_my_ip');
+    const cachedAt = parseInt(localStorage.getItem('wh_my_ip_at') || '0');
+    if (cached && Date.now() - cachedAt < 3600000) {
+      return cached === ADMIN_IP;
+    }
+    try {
+      const res  = await fetch('https://api.ipify.org?format=json');
+      const data = await res.json();
+      localStorage.setItem('wh_my_ip', data.ip);
+      localStorage.setItem('wh_my_ip_at', Date.now().toString());
+      return data.ip === ADMIN_IP;
+    } catch(e) {
+      return false; // IP 확인 실패 시 일반 방문자로 처리
+    }
+  }
 
   function todayStr() {
     return new Date().toISOString().slice(0, 10);
@@ -31,10 +51,9 @@
   }
 
   function getCountry() {
-    // 언어/타임존 기반 간이 추정
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    const tz   = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
     const lang = navigator.language || '';
-    if (tz.includes('Seoul') || tz.includes('Asia/Seoul') || lang.startsWith('ko')) return 'KR';
+    if (tz.includes('Seoul') || lang.startsWith('ko')) return 'KR';
     if (tz.includes('Tokyo') || lang.startsWith('ja')) return 'JP';
     if (lang.startsWith('en')) return 'US';
     return '기타';
@@ -49,20 +68,20 @@
     return '/';
   }
 
-  function track() {
-    const s   = getStats();
-    const vid = getVisitorId();
+  async function track() {
+    const admin = await isAdmin();
+    if (admin) return; // ★ 관리자 IP는 카운트 제외
+
+    const s     = getStats();
+    const vid   = getVisitorId();
     const today = todayStr();
 
-    // 오늘 날짜 초기화
     if (!s.days[today]) s.days[today] = { visits: 0, users: 0, clicks: 0, vids: [] };
     const td = s.days[today];
 
-    // 방문 카운트
     td.visits++;
     s.totalVisits++;
 
-    // 고유 사용자
     const isNew = !td.vids.includes(vid);
     if (isNew) {
       td.vids.push(vid);
@@ -70,57 +89,46 @@
       s.totalUsers++;
     }
 
-    // 국가
     const country = getCountry();
     if (!s.countries[country]) s.countries[country] = 0;
     s.countries[country]++;
 
-    // 페이지
     const pageKey = getPageKey();
     if (!s.pages[pageKey]) s.pages[pageKey] = 0;
     s.pages[pageKey]++;
 
-    // 로그 (최대 500개)
-    const now = new Date();
+    const now     = new Date();
     const timeStr = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     s.log.push({
       time: today + ' ' + timeStr,
-      ip: '***.***.***',
-      country: country,
-      page: pageKey,
+      country, page: pageKey,
       ref: document.referrer ? new URL(document.referrer).hostname : 'direct',
-      isNew: isNew,
-      clicked: false
+      isNew, clicked: false
     });
     if (s.log.length > 500) s.log = s.log.slice(-500);
 
     saveStats(s);
   }
 
-  // 배너 클릭 트래킹
-  window.trackBannerClick = function() {
-    const s = getStats();
+  // 배너 클릭 트래킹 (관리자 제외)
+  window.trackBannerClick = async function() {
+    const admin = await isAdmin();
+    if (admin) return;
+
+    const s     = getStats();
     const today = todayStr();
     if (!s.days[today]) s.days[today] = { visits: 0, users: 0, clicks: 0, vids: [] };
     s.days[today].clicks++;
     s.totalClicks++;
-
-    // 마지막 로그에 클릭 표시
-    if (s.log.length > 0) {
-      s.log[s.log.length - 1].clicked = true;
-    }
+    if (s.log.length > 0) s.log[s.log.length - 1].clicked = true;
     saveStats(s);
   };
 
-  // 실행
   track();
 
-  // 넷파일 버튼 클릭 감지
   document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.netfile-link, .btn-cta, .btn-header-cta').forEach(function(el) {
-      el.addEventListener('click', function() {
-        window.trackBannerClick();
-      });
+      el.addEventListener('click', function() { window.trackBannerClick(); });
     });
   });
 })();
