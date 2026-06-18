@@ -268,7 +268,10 @@
 <!-- 헤더 -->
 <header class="dash-header">
   <div class="logo">WEB<span>HARD</span>가이드 <span style="font-size:0.8rem;color:var(--muted);font-family:'Noto Sans KR'">통계 대시보드</span></div>
-  <div class="badge"><span class="dot-live"></span>실시간 · <b>LIVE</b> &nbsp;|&nbsp; netfile.p-e.kr</div>
+  <div style="display:flex;align-items:center;gap:12px;">
+      <div class="badge"><span class="dot-live"></span>실시간 · <b>LIVE</b> &nbsp;|&nbsp; netfile.p-e.kr</div>
+      <div class="badge" id="my-ip-badge" style="font-family:monospace;">내 IP: 확인 중...</div>
+    </div>
 </header>
 
 <div class="dash-wrap">
@@ -383,6 +386,31 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
+// ── 내 IP 표시 ──
+async function showMyIP() {
+  try {
+    const cached = localStorage.getItem('wh_my_ip');
+    const cachedAt = parseInt(localStorage.getItem('wh_my_ip_at') || '0');
+    let ip;
+    if (cached && Date.now() - cachedAt < 3600000) {
+      ip = cached;
+    } else {
+      const res = await fetch('https://api.ipify.org?format=json');
+      const data = await res.json();
+      ip = data.ip;
+      localStorage.setItem('wh_my_ip', ip);
+      localStorage.setItem('wh_my_ip_at', Date.now().toString());
+    }
+    const badge = document.getElementById('my-ip-badge');
+    const isAdmin = ip === ALLOWED_IP;
+    badge.innerHTML = '내 IP: <b style="color:' + (isAdmin ? 'var(--green)' : 'var(--red)') + '">' + ip + '</b>'
+      + (isAdmin ? ' &nbsp;<span style="color:var(--green);font-size:0.7rem;">✓ 관리자</span>' : ' &nbsp;<span style="color:var(--red);font-size:0.7rem;">⚠ 미허가</span>');
+  } catch(e) {
+    document.getElementById('my-ip-badge').textContent = '내 IP: 확인 불가';
+  }
+}
+showMyIP();
+
 // ── IP 접근 제한 ──
 const ALLOWED_IP = '123.98.190.115';
 
