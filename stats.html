@@ -386,27 +386,60 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
-// ── 내 IP 표시 ──
+// ── 내 IP 표시 (다중 API 시도) ──
 async function showMyIP() {
-  try {
-    const cached = localStorage.getItem('wh_my_ip');
-    const cachedAt = parseInt(localStorage.getItem('wh_my_ip_at') || '0');
-    let ip;
-    if (cached && Date.now() - cachedAt < 3600000) {
-      ip = cached;
-    } else {
-      const res = await fetch('https://api.ipify.org?format=json');
-      const data = await res.json();
-      ip = data.ip;
+  const badge = document.getElementById('my-ip-badge');
+  const cached   = localStorage.getItem('wh_my_ip');
+  const cachedAt = parseInt(localStorage.getItem('wh_my_ip_at') || '0');
+
+  let ip = null;
+  if (cached && Date.now() - cachedAt < 3600000) {
+    ip = cached;
+  } else {
+    const apis = [
+      () => fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => d.ip),
+      () => fetch('https://api64.ipify.org?format=json').then(r => r.json()).then(d => d.ip),
+      () => fetch('https://ipapi.co/json/').then(r => r.json()).then(d => d.ip),
+      () => fetch('https://api.my-ip.io/ip.json').then(r => r.json()).then(d => d.ip),
+    ];
+    for (const api of apis) {
+      try {
+        const result = await api();
+        if (result && result.includes('.')) { ip = result; break; }
+      } catch(e) { continue; }
+    }
+    if (ip) {
       localStorage.setItem('wh_my_ip', ip);
       localStorage.setItem('wh_my_ip_at', Date.now().toString());
     }
-    const badge = document.getElementById('my-ip-badge');
-    const isAdmin = ip === ALLOWED_IP;
-    badge.innerHTML = '내 IP: <b style="color:' + (isAdmin ? 'var(--green)' : 'var(--red)') + '">' + ip + '</b>'
-      + (isAdmin ? ' &nbsp;<span style="color:var(--green);font-size:0.7rem;">✓ 관리자</span>' : ' &nbsp;<span style="color:var(--red);font-size:0.7rem;">⚠ 미허가</span>');
-  } catch(e) {
-    document.getElementById('my-ip-badge').textContent = '내 IP: 확인 불가';
+  }
+
+  if (!ip) {
+    badge.textContent = '내 IP: 확인 불가';
+    return;
+  }
+
+  const isAdmin = ip === ALLOWED_IP;
+  badge.innerHTML = '내 IP: <b style="color:' + (isAdmin ? 'var(--green)' : 'var(--red)') + '">'
+    + ip + '</b>'
+    + (isAdmin
+      ? ' &nbsp;<span style="color:var(--green);font-size:0.7rem;">✓ 관리자</span>'
+      : ' &nbsp;<span style="color:var(--red);font-size:0.7rem;">⚠ 미허가</span>');
+
+  // 관리자면 기존 로그에서 관리자 IP 데이터 정리
+  if (isAdmin) {
+    try {
+      const raw = localStorage.getItem('wh_stats');
+      if (raw) {
+        const s = JSON.parse(raw);
+        const before = s.log.length;
+        s.log = s.log.filter(r => r.ip !== ALLOWED_IP && r.ip !== '***.***.***');
+        if (s.log.length !== before) {
+          localStorage.setItem('wh_stats', JSON.stringify(s));
+          console.log(`관리자 로그 ${before - s.log.length}건 정리 완료`);
+        }
+      }
+    } catch(e) {}
   }
 }
 showMyIP();
