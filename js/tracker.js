@@ -3,24 +3,6 @@
   const KEY        = 'wh_stats';
   const ADMIN_IP   = '123.98.190.115';  // 관리자 IP — 카운트 제외
 
-  // 관리자 IP 여부 확인 (비동기, localStorage 캐시)
-  async function isAdmin() {
-    // 캐시된 IP 먼저 확인 (1시간 유효)
-    const cached = localStorage.getItem('wh_my_ip');
-    const cachedAt = parseInt(localStorage.getItem('wh_my_ip_at') || '0');
-    if (cached && Date.now() - cachedAt < 3600000) {
-      return cached === ADMIN_IP;
-    }
-    try {
-      const res  = await fetch('https://api.ipify.org?format=json');
-      const data = await res.json();
-      localStorage.setItem('wh_my_ip', data.ip);
-      localStorage.setItem('wh_my_ip_at', Date.now().toString());
-      return data.ip === ADMIN_IP;
-    } catch(e) {
-      return false; // IP 확인 실패 시 일반 방문자로 처리
-    }
-  }
 
   function todayStr() {
     return new Date().toISOString().slice(0, 10);
@@ -68,9 +50,22 @@
     return '/';
   }
 
+  async function getMyIP() {
+    const cached   = localStorage.getItem('wh_my_ip');
+    const cachedAt = parseInt(localStorage.getItem('wh_my_ip_at') || '0');
+    if (cached && Date.now() - cachedAt < 3600000) return cached;
+    try {
+      const res  = await fetch('https://api.ipify.org?format=json');
+      const data = await res.json();
+      localStorage.setItem('wh_my_ip', data.ip);
+      localStorage.setItem('wh_my_ip_at', Date.now().toString());
+      return data.ip;
+    } catch(e) { return null; }
+  }
+
   async function track() {
-    const admin = await isAdmin();
-    if (admin) return; // ★ 관리자 IP는 카운트 제외
+    const myIP = await getMyIP();
+    if (myIP === ADMIN_IP) return; // ★ 관리자 IP는 카운트 제외
 
     const s     = getStats();
     const vid   = getVisitorId();
@@ -101,6 +96,7 @@
     const timeStr = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     s.log.push({
       time: today + ' ' + timeStr,
+      ip: myIP || '-',
       country, page: pageKey,
       ref: document.referrer ? new URL(document.referrer).hostname : 'direct',
       isNew, clicked: false
@@ -112,8 +108,8 @@
 
   // 배너 클릭 트래킹 (관리자 제외)
   window.trackBannerClick = async function() {
-    const admin = await isAdmin();
-    if (admin) return;
+    const myIP = await getMyIP();
+    if (myIP === ADMIN_IP) return;
 
     const s     = getStats();
     const today = todayStr();
