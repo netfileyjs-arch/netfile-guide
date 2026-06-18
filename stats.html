@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>방문자 통계 | WEBHARD가이드</title>
   <meta name="robots" content="noindex, nofollow" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Oswald:wght@600&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg:      #0d1117;
@@ -25,7 +23,7 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Noto Sans KR', sans-serif;
+      font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
       min-height: 100vh;
     }
 
@@ -100,7 +98,7 @@
       border-radius: 8px;
       font-size: 0.85rem;
       cursor: pointer;
-      font-family: 'Noto Sans KR', sans-serif;
+      font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
       transition: border-color 0.2s;
     }
     .btn-refresh:hover { border-color: var(--accent); color: var(--accent); }
@@ -441,7 +439,7 @@ let chartDaily, chartCountry, chartClick, chartPage;
 
 Chart.defaults.color = '#8b949e';
 Chart.defaults.borderColor = '#30363d';
-Chart.defaults.font.family = "'Noto Sans KR', sans-serif";
+Chart.defaults.font.family = "'Pretendard', 'Noto Sans KR', sans-serif";
 
 function renderCharts(s) {
   const today = todayStr();
