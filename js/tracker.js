@@ -1,8 +1,33 @@
 // ── 방문자 트래킹 스크립트 ──
 (function() {
-  const KEY        = 'wh_stats';
-  const ADMIN_IP   = '123.98.190.115';  // 관리자 IP — 카운트 제외
+  const KEY      = 'wh_stats';
+  const ADMIN_IP = '123.98.190.115';
 
+  // 여러 IP API 순차 시도 (하나 막혀도 다음으로)
+  async function getMyIP() {
+    const cached   = localStorage.getItem('wh_my_ip');
+    const cachedAt = parseInt(localStorage.getItem('wh_my_ip_at') || '0');
+    if (cached && Date.now() - cachedAt < 3600000) return cached;
+
+    const apis = [
+      () => fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => d.ip),
+      () => fetch('https://api64.ipify.org?format=json').then(r => r.json()).then(d => d.ip),
+      () => fetch('https://ipapi.co/json/').then(r => r.json()).then(d => d.ip),
+      () => fetch('https://api.my-ip.io/ip.json').then(r => r.json()).then(d => d.ip),
+    ];
+
+    for (const api of apis) {
+      try {
+        const ip = await api();
+        if (ip && ip.includes('.')) {
+          localStorage.setItem('wh_my_ip', ip);
+          localStorage.setItem('wh_my_ip_at', Date.now().toString());
+          return ip;
+        }
+      } catch(e) { continue; }
+    }
+    return null;
+  }
 
   function todayStr() {
     return new Date().toISOString().slice(0, 10);
@@ -50,22 +75,27 @@
     return '/';
   }
 
-  async function getMyIP() {
-    const cached   = localStorage.getItem('wh_my_ip');
-    const cachedAt = parseInt(localStorage.getItem('wh_my_ip_at') || '0');
-    if (cached && Date.now() - cachedAt < 3600000) return cached;
-    try {
-      const res  = await fetch('https://api.ipify.org?format=json');
-      const data = await res.json();
-      localStorage.setItem('wh_my_ip', data.ip);
-      localStorage.setItem('wh_my_ip_at', Date.now().toString());
-      return data.ip;
-    } catch(e) { return null; }
+  // 관리자 IP 관련 기존 로그 데이터 정리
+  function purgeAdminLogs() {
+    const s = getStats();
+    let changed = false;
+
+    // 로그에서 관리자 IP 항목 제거
+    const before = s.log.length;
+    s.log = s.log.filter(r => r.ip !== ADMIN_IP);
+    if (s.log.length !== before) changed = true;
+
+    if (changed) saveStats(s);
   }
 
   async function track() {
     const myIP = await getMyIP();
-    if (myIP === ADMIN_IP) return; // ★ 관리자 IP는 카운트 제외
+
+    // 관리자 IP면 카운트 제외 + 기존 로그 정리 후 종료
+    if (myIP === ADMIN_IP) {
+      purgeAdminLogs();
+      return;
+    }
 
     const s     = getStats();
     const vid   = getVisitorId();
@@ -95,11 +125,11 @@
     const now     = new Date();
     const timeStr = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     s.log.push({
-      time: today + ' ' + timeStr,
-      ip: myIP || '-',
+      time:    today + ' ' + timeStr,
+      ip:      myIP || '-',
       country, page: pageKey,
-      ref: document.referrer ? new URL(document.referrer).hostname : 'direct',
-      isNew, clicked: false
+      ref:     document.referrer ? (() => { try { return new URL(document.referrer).hostname; } catch(e) { return 'direct'; } })() : 'direct',
+      isNew,   clicked: false
     });
     if (s.log.length > 500) s.log = s.log.slice(-500);
 
@@ -119,6 +149,10 @@
     if (s.log.length > 0) s.log[s.log.length - 1].clicked = true;
     saveStats(s);
   };
+
+  // IP API를 외부에서도 쓸 수 있도록 노출
+  window.getMyIP = getMyIP;
+  window.ADMIN_IP = ADMIN_IP;
 
   track();
 
