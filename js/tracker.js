@@ -157,7 +157,7 @@
   track();
 
   document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.netfile-link, .btn-cta, .btn-header-cta').forEach(function(el) {
+    document.querySelectorAll('.netfile-link').forEach(function(el) {
       el.addEventListener('click', function() { window.trackBannerClick(); });
     });
   });

@@ -19,7 +19,7 @@ const observer = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.point-card, .guide-card, .step-item, .info-box').forEach(el => {
+document.querySelectorAll('.point-card, .guide-card, .step-item, .info-box, .faq-item').forEach(el => {
   el.style.opacity = '0';
   el.style.transform = 'translateY(20px)';
   el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
