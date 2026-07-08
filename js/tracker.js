@@ -1,164 +1,26 @@
-// ── 방문자 트래킹 스크립트 ──
-(function() {
-  const KEY      = 'wh_stats';
-  const ADMIN_IP = '123.98.190.115';
+// ── 서버측 방문/클릭 추적 (교차 사용자·실시간) ──
+// 기존 localStorage 방식(본인 브라우저만 카운트)을 대체.
+// 집계는 Oracle 서버(https://sport.p-e.kr)에 기록되고, 관리자 페이지에서 실시간 확인.
+//   방문:  https://sport.p-e.kr/nfg/pv   (1x1 비콘)
+//   클릭:  https://sport.p-e.kr/nfg       (302 → 넷파일 제휴, 모바일 자동 분기)
+//   관리자: https://sport.p-e.kr/nfg/admin (admin / worldodds2026!)
+(function () {
+  var NFG = 'https://sport.p-e.kr/nfg';
 
-  // 여러 IP API 순차 시도 (하나 막혀도 다음으로)
-  async function getMyIP() {
-    const cached   = localStorage.getItem('wh_my_ip');
-    const cachedAt = parseInt(localStorage.getItem('wh_my_ip_at') || '0');
-    if (cached && Date.now() - cachedAt < 3600000) return cached;
+  // goNetfile(인라인 스크립트)이 window.NETFILE_URL을 열므로 추적 URL로 지정
+  window.NETFILE_URL = NFG;
 
-    const apis = [
-      () => fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => d.ip),
-      () => fetch('https://api64.ipify.org?format=json').then(r => r.json()).then(d => d.ip),
-      () => fetch('https://ipapi.co/json/').then(r => r.json()).then(d => d.ip),
-      () => fetch('https://api.my-ip.io/ip.json').then(r => r.json()).then(d => d.ip),
-    ];
+  // 방문 집계 비콘 (HTTPS라 혼합콘텐츠 없음)
+  try { new Image().src = NFG + '/pv?t=' + Date.now(); } catch (e) {}
 
-    for (const api of apis) {
-      try {
-        const ip = await api();
-        if (ip && ip.includes('.')) {
-          localStorage.setItem('wh_my_ip', ip);
-          localStorage.setItem('wh_my_ip_at', Date.now().toString());
-          return ip;
-        }
-      } catch(e) { continue; }
-    }
-    return null;
-  }
-
-  function todayStr() {
-    return new Date().toISOString().slice(0, 10);
-  }
-
-  function getStats() {
-    try { return JSON.parse(localStorage.getItem(KEY)) || newStats(); }
-    catch(e) { return newStats(); }
-  }
-
-  function newStats() {
-    return {
-      days: {}, totalVisits: 0, totalUsers: 0, totalClicks: 0,
-      pages: { '/': 0, '/pages/compare.html': 0, '/pages/guide.html': 0, '/pages/trouble.html': 0, '/pages/coin.html': 0 },
-      countries: { KR: 0, US: 0, JP: 0, 기타: 0 },
-      log: []
-    };
-  }
-
-  function saveStats(s) {
-    try { localStorage.setItem(KEY, JSON.stringify(s)); } catch(e) {}
-  }
-
-  function getVisitorId() {
-    let id = localStorage.getItem('wh_vid');
-    if (!id) { id = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem('wh_vid', id); }
-    return id;
-  }
-
-  function getCountry() {
-    const tz   = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-    const lang = navigator.language || '';
-    if (tz.includes('Seoul') || lang.startsWith('ko')) return 'KR';
-    if (tz.includes('Tokyo') || lang.startsWith('ja')) return 'JP';
-    if (lang.startsWith('en')) return 'US';
-    return '기타';
-  }
-
-  function getPageKey() {
-    const p = location.pathname;
-    if (p.includes('compare')) return '/pages/compare.html';
-    if (p.includes('guide'))   return '/pages/guide.html';
-    if (p.includes('trouble')) return '/pages/trouble.html';
-    if (p.includes('coin'))    return '/pages/coin.html';
-    return '/';
-  }
-
-  // 관리자 IP 관련 기존 로그 데이터 정리
-  function purgeAdminLogs() {
-    const s = getStats();
-    let changed = false;
-
-    // 로그에서 관리자 IP 항목 제거
-    const before = s.log.length;
-    s.log = s.log.filter(r => r.ip !== ADMIN_IP);
-    if (s.log.length !== before) changed = true;
-
-    if (changed) saveStats(s);
-  }
-
-  async function track() {
-    const myIP = await getMyIP();
-
-    // 관리자 IP면 카운트 제외 + 기존 로그 정리 후 종료
-    if (myIP === ADMIN_IP) {
-      purgeAdminLogs();
-      return;
-    }
-
-    const s     = getStats();
-    const vid   = getVisitorId();
-    const today = todayStr();
-
-    if (!s.days[today]) s.days[today] = { visits: 0, users: 0, clicks: 0, vids: [] };
-    const td = s.days[today];
-
-    td.visits++;
-    s.totalVisits++;
-
-    const isNew = !td.vids.includes(vid);
-    if (isNew) {
-      td.vids.push(vid);
-      td.users++;
-      s.totalUsers++;
-    }
-
-    const country = getCountry();
-    if (!s.countries[country]) s.countries[country] = 0;
-    s.countries[country]++;
-
-    const pageKey = getPageKey();
-    if (!s.pages[pageKey]) s.pages[pageKey] = 0;
-    s.pages[pageKey]++;
-
-    const now     = new Date();
-    const timeStr = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-    s.log.push({
-      time:    today + ' ' + timeStr,
-      ip:      myIP || '-',
-      country, page: pageKey,
-      ref:     document.referrer ? (() => { try { return new URL(document.referrer).hostname; } catch(e) { return 'direct'; } })() : 'direct',
-      isNew,   clicked: false
+  // 모든 넷파일 링크를 추적 리다이렉트로 연결 (JS 없이도 동작하도록 href 지정)
+  function wire() {
+    document.querySelectorAll('.netfile-link').forEach(function (el) {
+      el.setAttribute('href', NFG);
+      el.setAttribute('target', '_blank');
+      el.setAttribute('rel', 'noopener');
     });
-    if (s.log.length > 500) s.log = s.log.slice(-500);
-
-    saveStats(s);
   }
-
-  // 배너 클릭 트래킹 (관리자 제외)
-  window.trackBannerClick = async function() {
-    const myIP = await getMyIP();
-    if (myIP === ADMIN_IP) return;
-
-    const s     = getStats();
-    const today = todayStr();
-    if (!s.days[today]) s.days[today] = { visits: 0, users: 0, clicks: 0, vids: [] };
-    s.days[today].clicks++;
-    s.totalClicks++;
-    if (s.log.length > 0) s.log[s.log.length - 1].clicked = true;
-    saveStats(s);
-  };
-
-  // IP API를 외부에서도 쓸 수 있도록 노출
-  window.getMyIP = getMyIP;
-  window.ADMIN_IP = ADMIN_IP;
-
-  track();
-
-  document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.netfile-link').forEach(function(el) {
-      el.addEventListener('click', function() { window.trackBannerClick(); });
-    });
-  });
+  if (document.readyState !== 'loading') wire();
+  else document.addEventListener('DOMContentLoaded', wire);
 })();
