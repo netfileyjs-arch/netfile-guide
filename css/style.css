@@ -450,6 +450,56 @@ tr:last-child td { border-bottom: none; }
 .hero-urgency { margin-top: 22px; font-size: 0.9rem; color: var(--text-muted); }
 .hero-urgency b { color: var(--accent); }
 
+/* ── 히어로 2단 레이아웃 + 비주얼 ── */
+.hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 32px; align-items: center; }
+.hero-visual { display: flex; justify-content: center; }
+.hero-visual svg { max-width: 260px; width: 100%; filter: drop-shadow(0 10px 40px rgba(255, 107, 43, 0.35)); }
+
+/* ── 신뢰 지표 스트립 ── */
+.stats-strip { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.stats-strip .inner { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding: 30px 24px; }
+.stat { text-align: center; }
+.stat b { display: block; font-size: 1.9rem; font-weight: 800; color: var(--accent); line-height: 1.1; }
+.stat span { font-size: 0.85rem; color: var(--text-muted); }
+
+/* ── 문제 제기 ── */
+.problem-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+.problem-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
+.problem-emoji { font-size: 1.7rem; }
+.problem-item h4 { margin: 10px 0 6px; font-size: 1.02rem; }
+.problem-item p { margin: 0; color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
+
+/* ── 왜 넷파일 ── */
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+.why-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 24px; transition: border-color var(--transition), transform var(--transition); }
+.why-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+.why-icon { font-size: 1.8rem; display: block; margin-bottom: 12px; }
+.why-card h3 { margin: 0 0 8px; font-size: 1.05rem; }
+.why-card p { margin: 0; color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
+.why-card b { color: var(--accent); }
+
+/* ── 코인 용량 비교 시각화 ── */
+.coin-compare { text-align: center; }
+.coin-compare .viz { max-width: 640px; margin: 26px auto 0; background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
+.coin-compare svg { width: 100%; height: auto; }
+.x2-badge { display: inline-block; margin-top: 18px; background: var(--accent); color: var(--white); font-weight: 800; padding: 9px 20px; border-radius: 24px; font-size: 0.95rem; }
+
+/* ── 가입 3단계 ── */
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 24px; }
+.step { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 28px 22px; text-align: center; }
+.step .n { width: 42px; height: 42px; border-radius: 50%; background: var(--accent); color: var(--white); font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+.step h3 { margin: 0 0 6px; font-size: 1.05rem; }
+.step p { margin: 0; color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
+.steps-cta { text-align: center; margin-top: 30px; }
+
+@media (max-width: 768px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-visual { order: -1; }
+  .hero-visual svg { max-width: 170px; }
+  .stats-strip .inner { grid-template-columns: repeat(2, 1fr); gap: 22px; }
+  .problem-list, .why-grid, .steps { grid-template-columns: 1fr; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
