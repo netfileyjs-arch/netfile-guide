@@ -546,6 +546,25 @@ tr:last-child td { border-bottom: none; }
   .vs-head span, .vs-line span { padding: 11px 8px; font-size: 0.85rem; }
 }
 
+/* ── 넷파일 인기 콘텐츠 포스터 월 ── */
+.hot-content { text-align: center; }
+.poster-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 26px; }
+.poster { position: relative; display: block; aspect-ratio: 240 / 343; border-radius: 12px; overflow: hidden; background: linear-gradient(135deg, #1c2333, #2a3550); box-shadow: 0 6px 18px rgba(0,0,0,0.35); transition: transform var(--transition); }
+.poster:hover { transform: translateY(-5px); box-shadow: 0 12px 28px rgba(0,0,0,0.5); }
+.poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.poster-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 20px 10px 9px; font-size: 0.82rem; font-weight: 700; color: #fff; text-align: left; background: linear-gradient(transparent, rgba(0,0,0,0.88)); opacity: 0; transition: opacity var(--transition); }
+.poster:hover .poster-cap { opacity: 1; }
+.poster.noimg img { display: none; }
+.poster.noimg { background: linear-gradient(150deg, #ff8c55, #ff6b2b); }
+.poster.noimg .poster-cap { opacity: 1; inset: 0; padding: 12px; display: flex; align-items: center; justify-content: center; text-align: center; background: none; font-size: 1rem; }
+.hot-note { margin-top: 18px; color: var(--text-muted); font-size: 0.8rem; line-height: 1.7; }
+.hot-cta { margin-top: 24px; }
+
+@media (max-width: 768px) {
+  .poster-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .poster-cap { opacity: 1; padding: 14px 8px 7px; font-size: 0.72rem; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
