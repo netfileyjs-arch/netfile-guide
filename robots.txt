@@ -2,4 +2,43 @@ User-agent: *
 Allow: /
 Disallow: /stats.html
 
+# 검색엔진
+User-agent: Googlebot
+Allow: /
+Disallow: /stats.html
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Yeti
+Allow: /
+Disallow: /stats.html
+
+User-agent: Daum
+Allow: /
+Disallow: /stats.html
+
+User-agent: bingbot
+Allow: /
+Disallow: /stats.html
+
+# AI 검색 (콘텐츠 인용 허용)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://netfile.p-e.kr/sitemap.xml
