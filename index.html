@@ -606,6 +606,18 @@
     <a href="#" class="netfile-link">🎁 2,000코인 받고 무료가입</a>
   </div>
 
+  <!-- ── 이탈 방지 팝업 (desktop) ── -->
+  <div class="exit-modal" id="exitModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="exit-box">
+      <button class="exit-close" id="exitClose" aria-label="닫기">×</button>
+      <div class="exit-gift">🎁</div>
+      <h3>잠깐! <em>2,000코인</em>은 받고 가세요</h3>
+      <p>지금 이 링크로 가입하면 <strong>제휴결제 가능한 2,000코인</strong>을 즉시 드립니다.<br>코인 1개당 20MB — 일반 웹하드의 2배 용량으로 바로 시작하세요.</p>
+      <a href="#" class="btn-cta netfile-link">🎁 2,000코인 받고 무료가입</a>
+      <p class="exit-note">신규 가입 한정 · 가입은 무료입니다</p>
+    </div>
+  </div>
+
   <!-- ── 푸터 ── -->
   <footer class="site-footer">
     <div class="inner">
@@ -635,6 +647,31 @@
     document.querySelectorAll('.netfile-link').forEach(function(el) {
       el.addEventListener('click', goNetfile);
     });
+  </script>
+  <script>
+    // 이탈 방지 팝업: 데스크톱에서 마우스가 상단으로 벗어나거나, 70% 스크롤 시 1회 노출
+    (function () {
+      var modal = document.getElementById('exitModal');
+      if (!modal) return;
+      var shown = false;
+      function open() {
+        if (shown || sessionStorage.getItem('nf_exit')) return;
+        shown = true; sessionStorage.setItem('nf_exit', '1');
+        modal.classList.add('show'); modal.setAttribute('aria-hidden', 'false');
+      }
+      function close() { modal.classList.remove('show'); modal.setAttribute('aria-hidden', 'true'); }
+      document.getElementById('exitClose').addEventListener('click', close);
+      modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+      // 데스크톱: 마우스가 화면 위로 이탈
+      document.addEventListener('mouseout', function (e) {
+        if (!e.relatedTarget && e.clientY <= 0) open();
+      });
+      // 모바일 포함: 70% 스크롤 시
+      window.addEventListener('scroll', function () {
+        var sc = (window.scrollY + window.innerHeight) / document.body.scrollHeight;
+        if (sc > 0.7) open();
+      }, { passive: true });
+    })();
   </script>
   <script>
     // 넷파일 인기 콘텐츠 자동 갱신 — 서버가 넷파일 신작 포스터를 실시간 제공(6h 캐시)
