@@ -728,3 +728,38 @@ tr:last-child td { border-bottom: none; }
 .poster::after { content: "지금 받기 →"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(255,107,43,0.88); color: #fff; font-weight: 800; font-size: 0.95rem; opacity: 0; transition: opacity var(--transition); }
 .poster:hover::after { opacity: 1; }
 .poster.noimg::after { display: none; }
+
+/* ── 코인 계산기 ── */
+.calc-box { max-width: 680px; margin: 26px auto 0; background: var(--bg2); border: 1px solid var(--border); border-radius: 18px; padding: 28px; text-align: center; }
+.calc-input label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; text-align: left; }
+.calc-row { display: flex; gap: 10px; margin-bottom: 14px; }
+.calc-row input, .calc-row select { background: var(--bg); border: 1px solid var(--border); color: var(--text); border-radius: 10px; padding: 13px 14px; font-size: 1.05rem; font-weight: 700; }
+.calc-row input { flex: 1; }
+.calc-presets { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 22px; }
+.calc-presets button { background: var(--bg3); border: 1px solid var(--border); color: var(--text); border-radius: 20px; padding: 8px 14px; font-size: 0.82rem; cursor: pointer; transition: border-color var(--transition); }
+.calc-presets button:hover { border-color: var(--accent); color: var(--accent); }
+.calc-result { display: flex; align-items: stretch; gap: 12px; margin-bottom: 18px; }
+.calc-card { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 18px 12px; }
+.calc-card.net { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.calc-name { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; }
+.calc-name b { color: var(--accent); }
+.calc-card strong { font-size: 2.2rem; font-weight: 800; color: var(--text); }
+.calc-card.net strong { color: var(--accent); }
+.calc-unit { font-size: 0.9rem; color: var(--text-muted); margin-left: 4px; }
+.calc-vs { display: flex; align-items: center; color: var(--text-muted); font-weight: 700; }
+.calc-save { font-size: 1.05rem; color: var(--text); margin-bottom: 20px; }
+.calc-save b { color: var(--accent); font-weight: 800; }
+.calc-save #calcFree { display: block; font-size: 0.85rem; color: var(--green); margin-top: 4px; }
+.calc-box .btn-primary { width: 100%; }
+
+/* ── 활용 꿀팁 ── */
+.tip-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
+.tip-ic { font-size: 1.7rem; display: block; margin-bottom: 10px; }
+.tip-card h3 { font-size: 1.05rem; margin-bottom: 8px; }
+.tip-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
+.tip-card b { color: var(--accent); }
+
+@media (max-width: 560px) {
+  .calc-result { flex-direction: column; }
+  .calc-vs { justify-content: center; }
+}
