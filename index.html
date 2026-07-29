@@ -158,6 +158,9 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "DefinedTermSet", "name": "웹하드 용어사전", "hasDefinedTerm": [{"@type": "DefinedTerm", "name": "웹하드 등록제", "description": "문화체육관광부가 운영하는 합법 웹하드 서비스 인증 제도"}, {"@type": "DefinedTerm", "name": "코인", "description": "웹하드 다운로드에 쓰는 충전식 재화. 넷파일은 코인 1개당 20MB"}, {"@type": "DefinedTerm", "name": "월정액", "description": "일정 기간 무제한 다운로드가 가능한 웹하드 상품"}, {"@type": "DefinedTerm", "name": "접속기", "description": "빠른 다운로드를 돕는 전용 프로그램(무료 저속/유료 고속)"}, {"@type": "DefinedTerm", "name": "제휴 콘텐츠", "description": "정식 계약으로 제공되는 영화·드라마 등 콘텐츠"}, {"@type": "DefinedTerm", "name": "P2P", "description": "이용자끼리 직접 파일을 주고받는 방식(토렌트 등)"}]}
+  </script>
 </head>
 <body>
 
@@ -263,6 +266,16 @@
       <p class="hot-note">※ 콘텐츠는 넷파일에서 상시 업데이트됩니다. 다운로드는 코인으로 이용하며, 신규 2,000코인으로 바로 시작할 수 있습니다.</p>
       <div class="hot-cta">
         <a href="#" class="btn-primary btn-glow netfile-link">🎁 2,000코인 받고 콘텐츠 둘러보기 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 오늘의 팁 (매일 자동 변경) ── -->
+  <section class="today-tip">
+    <div class="inner">
+      <div class="tip-bar">
+        <span class="tip-badge">💡 오늘의 팁</span>
+        <p id="todayTip">넷파일 검색은 특수문자 없이 제목만 넣으면 더 잘 찾아집니다.</p>
       </div>
     </div>
   </section>
@@ -604,6 +617,24 @@
     </div>
   </section>
 
+  <!-- ── 웹하드 용어사전 ── -->
+  <section class="glossary">
+    <div class="inner">
+      <h2 class="section-title">웹하드 용어사전</h2>
+      <p class="section-sub">헷갈리는 웹하드 용어를 쉽게 풀이했습니다.</p>
+      <div class="grid-2">
+        <div class="term-card"><h3>웹하드 등록제</h3><p>문화체육관광부가 운영하는 합법 서비스 인증 제도. 저작권 보호·이용자 안전 기준을 충족한 서비스만 등록됩니다.</p></div>
+        <div class="term-card"><h3>코인</h3><p>웹하드 다운로드에 쓰는 충전식 재화. 넷파일은 코인 1개당 20MB로 일반(10MB)의 2배입니다.</p></div>
+        <div class="term-card"><h3>월정액</h3><p>일정 기간(보통 30일) 무제한 다운로드 상품. 매일 많이 받는 사람에게 유리합니다.</p></div>
+        <div class="term-card"><h3>접속기</h3><p>빠른 다운로드를 돕는 전용 프로그램. 무료(저속)와 유료(고속)가 있으며, 없어도 웹으로 이용 가능합니다.</p></div>
+        <div class="term-card"><h3>멤버십 등급</h3><p>누적 이용에 따라 오르는 회원 등급(예: 화이트→레드→블루→블랙). 등급이 높을수록 추가 혜택이 있습니다.</p></div>
+        <div class="term-card"><h3>제휴 콘텐츠</h3><p>정식 계약으로 제공되는 영화·드라마 등. 최신작은 코인 전용으로 운영되기도 합니다.</p></div>
+        <div class="term-card"><h3>P2P</h3><p>이용자끼리 직접 파일을 주고받는 방식(토렌트 등). 속도 편차가 크고 저작권·보안 위험이 있습니다.</p></div>
+        <div class="term-card"><h3>비회원 다운로드</h3><p>가입 없이 공유 링크로 받는 기능. 대체로 속도가 느려, 자주 쓴다면 가입이 유리합니다.</p></div>
+      </div>
+    </div>
+  </section>
+
   <!-- ── 자주 묻는 질문 ── -->
   <section class="faq-section">
     <div class="inner">
@@ -702,6 +733,26 @@
     });
   </script>
   <script>
+    // 오늘의 팁: KST 날짜 기준 매일 자동 변경
+    (function () {
+      var el = document.getElementById('todayTip');
+      if (!el) return;
+      var tips = [
+        '넷파일 검색은 특수문자 없이 제목만 넣으면 더 잘 찾아집니다.',
+        '코인 1개당 넷파일 20MB vs 일반 웹하드 10MB — 같은 코인으로 2배 받습니다.',
+        '다운로드가 느리면 고속 접속기를 사용해 보세요. 피크 시간대(밤 9~12시)는 더 느립니다.',
+        '넷파일 코인은 유효기간이 없어, 필요할 때 소량씩 충전하는 게 합리적입니다.',
+        '실행파일(.exe)이 영상인 척 섞인 파일은 피하세요. 악성코드일 확률이 높습니다.',
+        '매일 많이 받는다면 코인제보다 월정액(30일 무제한)이 유리할 수 있습니다.',
+        '웹하드는 등록제 인증 여부부터 확인하세요. 미등록 서비스는 법적·보안 리스크가 있습니다.',
+        '신규 가입 2,000코인으로 추가 결제 없이 바로 이용을 시작할 수 있습니다.'
+      ];
+      var kst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+      var seed = kst.split('-').reduce(function (a, b) { return a + parseInt(b, 10); }, 0);
+      el.textContent = tips[seed % tips.length];
+    })();
+  </script>
+  <script>
     // 코인 계산기: 파일크기 → 넷파일(20MB) vs 일반(10MB) 필요 코인
     (function () {
       var size = document.getElementById('calcSize');
@@ -761,7 +812,7 @@
         .then(function (d) {
           var list = (d && d.posters) || [];
           if (list.length < 4) return; // 실패·부족 시 기존 포스터 유지
-          grid.innerHTML = list.slice(0, 12).map(function (p) {
+          grid.innerHTML = list.slice(0, 20).map(function (p) {
             var t = String(p.title || '').replace(/[<>"&]/g, '');
             return '<a class="poster netfile-link" href="https://sport.p-e.kr/nfg" target="_blank" rel="noopener" aria-label="' + t + '">'
               + '<img src="' + p.img + '" alt="' + t + '" loading="lazy" onerror="this.closest(\'.poster\').classList.add(\'noimg\')">'
