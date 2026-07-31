@@ -804,3 +804,11 @@ tr:last-child td { border-bottom: none; }
 .ql-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 10px 0; }
 .ql-row a { background: var(--bg2); border: 1px solid var(--border); border-radius: 22px; padding: 9px 16px; font-size: 0.88rem; font-weight: 600; color: var(--text); transition: border-color var(--transition), color var(--transition); }
 .ql-row a:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── 넷파일 진행 혜택 ── */
+.perks { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.perk-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+.perk-ic { font-size: 1.8rem; display: block; margin-bottom: 12px; }
+.perk-card h3 { font-size: 1.05rem; margin-bottom: 8px; }
+.perk-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
+.perk-card b { color: var(--accent); }
