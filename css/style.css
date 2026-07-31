@@ -812,3 +812,6 @@ tr:last-child td { border-bottom: none; }
 .perk-card h3 { font-size: 1.05rem; margin-bottom: 8px; }
 .perk-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
 .perk-card b { color: var(--accent); }
+
+/* ── 혜택/면책 미세조정 ── */
+.perks .netfile-benefit-cta { margin-top: 30px; }
