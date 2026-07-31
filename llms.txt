@@ -21,6 +21,7 @@
 - [웹하드 사용법](https://netfile.p-e.kr/pages/guide.html): 가입, 코인 충전, 파일 다운로드 전 과정 안내
 - [웹하드 요금제 정리](https://netfile.p-e.kr/pages/coin.html): 코인제 vs 월정액, 상황별 유리한 선택
 - [웹하드 오류 해결](https://netfile.p-e.kr/pages/trouble.html): 접속 불가, 다운로드 실패, 속도 저하 해결법
+- [넷파일 자주 묻는 질문 FAQ](https://netfile.p-e.kr/pages/faq.html): 가입·코인·요금·속도·환불·모바일 등 질문 12가지
 
 ## 가입
 넷파일 신규 가입(2,000코인 지급): https://www.netfile.co.kr

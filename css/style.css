@@ -775,3 +775,14 @@ tr:last-child td { border-bottom: none; }
 .term-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
 .term-card h3 { font-size: 1rem; color: var(--accent); margin-bottom: 8px; }
 .term-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
+
+/* ── 신뢰/추천 대상 ── */
+.persona-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
+.persona-ic { font-size: 1.7rem; display: block; margin-bottom: 10px; }
+.persona-card h3 { font-size: 1.02rem; margin-bottom: 8px; }
+.persona-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
+.assure { margin-top: 20px; background: var(--bg2); border: 1px solid var(--border); border-left: 3px solid var(--green); border-radius: 14px; padding: 22px 24px; }
+.assure h3 { font-size: 1rem; margin-bottom: 12px; }
+.assure ul { margin: 0; padding-left: 20px; }
+.assure li { color: var(--text-muted); font-size: 0.92rem; line-height: 1.9; }
+.assure b, .assure strong { color: var(--text); }
