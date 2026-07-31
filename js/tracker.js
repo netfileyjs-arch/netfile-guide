@@ -24,3 +24,18 @@
   if (document.readyState !== 'loading') wire();
   else document.addEventListener('DOMContentLoaded', wire);
 })();
+
+// ── 스크롤 깊이 측정 (세션당 마일스톤 1회) ──
+(function(){
+  var sent={};
+  function onScroll(){
+    var pct=(window.scrollY+window.innerHeight)/document.body.scrollHeight*100;
+    [25,50,75,100].forEach(function(m){
+      if(pct>=m && !sent[m] && !sessionStorage.getItem('nf_s'+m)){
+        sent[m]=1; sessionStorage.setItem('nf_s'+m,'1');
+        try{ new Image().src='https://sport.p-e.kr/nfg/scroll?p='+m+'&t='+Date.now(); }catch(e){}
+      }
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+})();
