@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>웹하드 코인 계산기 | 넷파일 vs 일반 필요 코인 비교 (2026)</title>
+  <meta name="description" content="파일 크기만 넣으면 넷파일(20MB)과 일반 웹하드(10MB)의 필요 코인과 절약분을 바로 계산합니다. 영화·4K·드라마 프리셋 제공." />
+  <meta name="keywords" content="웹하드코인계산,넷파일코인계산기,코인계산,웹하드요금계산,넷파일" />
+  <link rel="canonical" href="https://netfile.p-e.kr/pages/coin-calculator.html" />
+  <meta property="og:image" content="https://netfile.p-e.kr/og-image.png" />
+  <meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://netfile.p-e.kr/og-image.png" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="웹하드 코인 계산기 | 넷파일 vs 일반 필요 코인 비교 (2026)" />
+  <meta property="og:description" content="파일 크기만 넣으면 넷파일(20MB)과 일반 웹하드(10MB)의 필요 코인과 절약분을 바로 계산합니다. 영화·4K·드라마 프리셋 제공." />
+  <meta property="og:url" content="https://netfile.p-e.kr/pages/coin-calculator.html" />
+  <meta property="og:site_name" content="웹하드 가이드" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "홈", "item": "https://netfile.p-e.kr/"}, {"@type": "ListItem", "position": 2, "name": "웹하드 코인 계산기", "item": "https://netfile.p-e.kr/pages/coin-calculator.html"}]}</script>
+  
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/page.css" />
+  <script>
+    (function(){var ua=navigator.userAgent;var m=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+    window.NETFILE_URL=m?'https://m.netfile.co.kr/index.jsp?referer_url=direct&keyid=jaesuni49':'https://www.netfile.co.kr/index.jsp?referer_url=direct&keyid=jaesuni49';})();
+  </script>
+  <link rel="icon" type="image/x-icon" href="../favicon.ico" />
+  <link rel="icon" type="image/png" sizes="512x512" href="../favicon-512.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+  <meta name="author" content="웹하드 가이드" /><meta name="language" content="Korean" />
+  <meta property="kakao:title" content="웹하드 코인 계산기 | 넷파일 vs 일반 필요 코인 비교 (2026)" /><meta name="nate:title" content="웹하드 코인 계산기 | 넷파일 vs 일반 필요 코인 비교 (2026)" />
+</head>
+<body>
+  <header class="site-header"><div class="inner">
+    <a href="../index.html" class="logo">WEB<span>HARD</span>가이드</a>
+      <nav>
+        <a href="webhard.html">웹하드란</a>
+        <a href="compare.html">순위 비교</a>
+        <a href="guide.html">사용법</a>
+        <a href="trouble.html">오류 해결</a>
+        <a href="coin.html" class="active">요금제</a>
+        <a href="faq.html">FAQ</a>
+        <a href="#" class="btn-header-cta netfile-link">🎁 넷파일 2,000코인 무료가입</a>
+      </nav>
+  </div></header>
+  <section class="page-hero"><div class="inner">
+    <p class="eyebrow">인터랙티브 도구</p><h1>웹하드 코인 계산기</h1><p class="hero-sub">받으려는 파일 크기를 넣으면 넷파일과 일반 웹하드의 필요 코인을 바로 비교해 드립니다.</p>
+  </div></section>
+  <section class="page-content"><div class="inner">
+      <div class="calc-box">
+        <div class="calc-input"><label for="calcSize">파일 크기</label>
+          <div class="calc-row"><input type="number" id="calcSize" min="0" step="0.1" value="1.5" />
+            <select id="calcUnit"><option value="1024">GB</option><option value="1">MB</option></select></div>
+          <div class="calc-presets">
+            <button data-mb="700">영화 1편(700MB)</button><button data-mb="1536">고화질 영화(1.5GB)</button>
+            <button data-mb="4096">4K 영상(4GB)</button><button data-mb="12288">드라마 1시즌(12GB)</button></div>
+        </div>
+        <div class="calc-result">
+          <div class="calc-card net"><span class="calc-name">넷파일 <b>20MB/코인</b></span><strong id="calcNet">77</strong><span class="calc-unit">코인</span></div>
+          <div class="calc-vs">vs</div>
+          <div class="calc-card"><span class="calc-name">일반 웹하드 <b>10MB/코인</b></span><strong id="calcGen">154</strong><span class="calc-unit">코인</span></div>
+        </div>
+        <p class="calc-save">넷파일로 <b id="calcDiff">77코인</b> 절약! <span id="calcFree"></span></p>
+        <a href="#" class="btn-primary btn-glow netfile-link">🎁 2,000코인 받고 계산기대로 받기 →</a>
+      </div>
+      <p style="color:var(--text-muted);line-height:1.9;margin-top:28px;">넷파일은 코인 1개당 <strong style="color:var(--text)">20MB</strong>로 일반 웹하드(10MB)의 2배입니다. 같은 파일도 절반의 코인으로 받을 수 있어, 자주 이용할수록 차이가 커집니다. 요금제 선택은 <a href="coin.html" style="color:var(--accent)">요금제 정리</a>를 참고하세요.</p>
+      <div class="inline-cta"><h3>넷파일 — 합법 등록 웹하드</h3>
+        <p>코인 1개당 20MB(일반의 2배) · 무제한 용량 · 무기한 보관<br>신규 가입 시 <strong>2,000코인</strong>을 즉시 드립니다</p>
+        <a href="#" class="btn-primary netfile-link">넷파일 무료 가입하기 →</a></div>
+  </div></section>
+  <div class="sticky-mobile-cta"><a href="#" class="netfile-link">🎁 2,000코인 받고 무료가입</a></div>
+  <footer class="site-footer"><div class="inner">
+    <p class="footer-logo">WEBHARD가이드</p>
+    <nav class="footer-nav">
+      <a href="../index.html">홈</a><a href="webhard.html">웹하드란</a><a href="compare.html">순위 비교</a>
+      <a href="guide.html">사용법</a><a href="trouble.html">오류 해결</a><a href="coin.html">요금제</a>
+      <a href="faq.html">FAQ</a><a href="free-download.html">무료 다운로드</a>
+    </nav>
+    <p class="footer-note">본 사이트는 웹하드 서비스 정보 제공을 목적으로 운영됩니다.<br>넷파일(netfile.co.kr)과 제휴된 안내 페이지입니다.</p>
+    <p class="footer-copy">© 2026 WEBHARD가이드. All rights reserved.</p>
+  </div></footer>
+  <script src="../js/tracker.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/promo.js"></script>
+  <script>
+    function goNetfile(e){e.preventDefault();window.open(window.NETFILE_URL,'_blank','noopener');}
+    document.querySelectorAll('.netfile-link').forEach(function(el){el.addEventListener('click',goNetfile);});
+  </script>
+  <script>
+    (function(){var s=document.getElementById('calcSize'),u=document.getElementById('calcUnit');
+    function c(){var mb=(parseFloat(s.value)||0)*(parseFloat(u.value)||1);var n=Math.ceil(mb/20),g=Math.ceil(mb/10);
+      document.getElementById('calcNet').textContent=n.toLocaleString();document.getElementById('calcGen').textContent=g.toLocaleString();
+      document.getElementById('calcDiff').textContent=(g-n).toLocaleString()+'코인';
+      document.getElementById('calcFree').textContent=(n>0&&n<=2000)?'신규 2,000코인으로 바로 받을 수 있어요!':'';}
+    s.addEventListener('input',c);u.addEventListener('change',c);
+    document.querySelectorAll('.calc-presets button').forEach(function(b){b.addEventListener('click',function(){u.value='1';s.value=b.getAttribute('data-mb');c();});});c();})();
+  </script>
+</body></html>

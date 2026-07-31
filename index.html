@@ -228,7 +228,7 @@
   <!-- ── 넷파일 인기 콘텐츠 (실제 포스터, 자동 갱신) ── -->
   <section class="hot-content">
     <div class="inner">
-      <h2 class="section-title">🔥 지금 넷파일 인기 콘텐츠</h2>
+      <h2 class="section-title">🔥 지금 넷파일 인기 콘텐츠 <span class="hot-badge" id="hotBadge"></span></h2>
       <p class="section-sub">넷파일에서 상시 업데이트되는 최신 영화·애니·드라마 신작.</p>
       <div class="poster-grid" id="posterGrid">
         <a class="poster netfile-link" href="#" aria-label="짱구">
@@ -750,6 +750,7 @@
 
   <script src="js/tracker.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/promo.js"></script>
   <script>
     function goNetfile(e) {
       e.preventDefault();
@@ -840,6 +841,7 @@
         .then(function (d) {
           var list = (d && d.posters) || [];
           if (list.length < 4) return; // 실패·부족 시 기존 포스터 유지
+          var _n=Math.min(list.length,20);var _b=document.getElementById('hotBadge');if(_b)_b.textContent=_n+'개 신작 · 자동 업데이트';
           grid.innerHTML = list.slice(0, 20).map(function (p) {
             var t = String(p.title || '').replace(/[<>"&]/g, '');
             return '<a class="poster netfile-link" href="https://sport.p-e.kr/nfg" target="_blank" rel="noopener" aria-label="' + t + '">'
