@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>H.264 vs HEVC vs AV1 코덱 비교 | 무엇을 써야 할까 (2026)</title>
+<meta name="description" content="H.264, H.265(HEVC), AV1, VP9 코덱을 압축률·호환성·인코딩 속도 기준으로 비교했습니다. 상황별 추천 코덱까지 정리." />
+<meta name="keywords" content="코덱비교,H.264,HEVC,H.265,AV1,VP9,영상코덱,인코딩" />
+<link rel="canonical" href="https://netfile.p-e.kr/tools/codec.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="H.264 vs HEVC vs AV1 코덱 비교 | 무엇을 써야 할까 (2026)" />
+<meta property="og:description" content="H.264, H.265(HEVC), AV1, VP9 코덱을 압축률·호환성·인코딩 속도 기준으로 비교했습니다. 상황별 추천 코덱까지 정리." />
+<meta property="og:url" content="https://netfile.p-e.kr/tools/codec.html" />
+<meta property="og:site_name" content="영상·파일 정보 포털" />
+<meta property="og:image" content="https://netfile.p-e.kr/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "홈", "item": "https://netfile.p-e.kr/"}, {"@type": "ListItem", "position": 2, "name": "영상·파일 도구", "item": "https://netfile.p-e.kr/tools/"}, {"@type": "ListItem", "position": 3, "name": "H.264 vs HEVC vs AV1 코덱 비교", "item": "https://netfile.p-e.kr/tools/codec.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "HEVC와 H.265는 다른가요?", "acceptedAnswer": {"@type": "Answer", "text": "같은 코덱입니다. 표준명이 H.265이고 별칭이 HEVC(High Efficiency Video Coding)입니다."}}, {"@type": "Question", "name": "AV1이 좋다는데 왜 아직 H.264를 쓰나요?", "acceptedAnswer": {"@type": "Answer", "text": "AV1은 인코딩이 매우 느리고 구형 기기 호환성이 낮기 때문입니다. 범용 배포에는 여전히 H.264가 안전합니다."}}, {"@type": "Question", "name": "MP4와 MKV 중 무엇이 나은가요?", "acceptedAnswer": {"@type": "Answer", "text": "MKV는 자막·다중 음성 트랙을 유연하게 담고, MP4는 호환성이 좋습니다. TV·모바일 재생 위주면 MP4가 무난합니다."}}]}</script>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet" href="../css/page.css" />
+<link rel="icon" type="image/x-icon" href="../favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+<meta name="author" content="영상·파일 정보 포털" /><meta name="language" content="Korean" />
+</head>
+<body>
+<header class="site-header"><div class="inner">
+  <a href="index.html" class="logo">영상·파일<span>도구</span></a>
+      <nav>
+        <a href="index.html">도구 홈</a>
+        <a href="video-size.html">용량 계산</a>
+        <a href="transfer-time.html">전송 시간</a>
+        <a href="storage.html">저장공간</a>
+        <a href="codec.html" class="active">코덱 비교</a>
+        <a href="../index.html">웹하드 가이드</a>
+      </nav>
+</div></header>
+<section class="page-hero"><div class="inner"><p class="eyebrow">영상 기술 가이드</p><h1>H.264 vs HEVC vs AV1</h1><p class="hero-sub">압축률·호환성·인코딩 속도 관점에서 주요 영상 코덱을 비교했습니다.</p></div></section>
+<section class="page-content"><div class="inner">
+<p class="tool-p">코덱은 영상을 <b>압축하고 푸는 방식</b>입니다. 같은 화질이라도 어떤 코덱을 쓰느냐에 따라 파일 크기가 두 배 이상 차이 납니다.</p>
+<div class="table-wrap"><table><thead><tr><th>항목</th><th>H.264 (AVC)</th><th>H.265 (HEVC)</th><th>AV1</th></tr></thead><tbody>
+<tr><td>같은 화질 용량</td><td>기준 (100%)</td><td>약 50~60%</td><td>약 40~50%</td></tr>
+<tr><td>호환성</td><td>매우 높음(거의 모든 기기)</td><td>보통(기기별 상이)</td><td>낮음~보통(최신 기기)</td></tr>
+<tr><td>하드웨어 가속</td><td>사실상 전 기기</td><td>대부분 최신 기기</td><td>최근 GPU·칩셋부터</td></tr>
+<tr><td>인코딩 속도</td><td>빠름</td><td>느림</td><td>매우 느림</td></tr>
+<tr><td>라이선스</td><td>특허 로열티</td><td>특허 로열티(복잡)</td><td>로열티 무료</td></tr>
+<tr><td>주 사용처</td><td>범용·구형 기기</td><td>4K 방송·애플 생태계</td><td>유튜브·넷플릭스 스트리밍</td></tr>
+</tbody></table></div>
+<h2 class="section-title" style="margin-top:48px;">상황별 추천</h2>
+<div class="grid-2">
+<div class="tip-card"><span class="tip-ic">📺</span><h3>어디서나 재생해야 한다면</h3><p><b>H.264</b>. TV·구형 스마트폰·태블릿까지 가장 확실하게 재생됩니다.</p></div>
+<div class="tip-card"><span class="tip-ic">💾</span><h3>용량을 아껴야 한다면</h3><p><b>HEVC</b>. 절반 용량으로 같은 화질, 최신 기기 대부분에서 하드웨어 재생됩니다.</p></div>
+<div class="tip-card"><span class="tip-ic">🌐</span><h3>웹 스트리밍이라면</h3><p><b>AV1</b>. 로열티가 없고 압축률이 가장 좋아 대형 플랫폼이 채택 중입니다.</p></div>
+<div class="tip-card"><span class="tip-ic">⚡</span><h3>빨리 인코딩해야 한다면</h3><p><b>H.264</b>. AV1은 같은 영상 인코딩에 수 배~수십 배 시간이 걸립니다.</p></div>
+</div>
+<h2 class="section-title" style="margin-top:48px;">코덱과 컨테이너는 다릅니다</h2>
+<p class="tool-p">MP4·MKV·AVI는 <b>컨테이너(포장 상자)</b>이고, H.264·HEVC·AV1은 <b>코덱(압축 방식)</b>입니다.
+"MP4인데 재생이 안 된다"면 컨테이너가 아니라 내부 코덱을 기기가 지원하지 않는 경우가 대부분입니다.
+실제 용량 차이는 <a href="video-size.html">영상 용량 계산기</a>로 확인해 보세요.</p>
+</div></section>
+<footer class="site-footer"><div class="inner">
+  <p class="footer-logo">영상·파일 정보 포털</p>
+  <nav class="footer-nav">
+    <a href="index.html">도구 홈</a><a href="video-size.html">용량 계산기</a><a href="transfer-time.html">전송 시간</a>
+    <a href="storage.html">저장공간</a><a href="compression.html">압축률</a><a href="codec.html">코덱 비교</a>
+    <a href="video-stutter.html">영상 끊김</a><a href="subtitle.html">자막 인코딩</a><a href="large-file.html">대용량 전송</a>
+    <a href="backup.html">백업·클라우드</a><a href="tv-play.html">TV 재생</a>
+  </nav>
+  <p class="footer-note">영상 코덱·용량·전송·백업에 대한 정보와 무료 계산기를 제공합니다.<br>일부 페이지에는 파일 저장 서비스 안내(제휴 링크)가 포함될 수 있습니다.</p>
+  <p class="footer-copy">© 2026 영상·파일 정보 포털</p>
+</div></footer>
+<script src="../js/tracker.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/tools.js"></script>
+</body></html>

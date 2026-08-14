@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>파일 압축률 계산기 | 인코딩 전후 용량 절감 계산</title>
+<meta name="description" content="압축·인코딩 전후 용량을 넣으면 압축률과 절약 용량, 압축비를 계산합니다." />
+<meta name="keywords" content="압축률계산기,인코딩절감,파일압축,용량절약" />
+<link rel="canonical" href="https://netfile.p-e.kr/tools/compression.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="파일 압축률 계산기 | 인코딩 전후 용량 절감 계산" />
+<meta property="og:description" content="압축·인코딩 전후 용량을 넣으면 압축률과 절약 용량, 압축비를 계산합니다." />
+<meta property="og:url" content="https://netfile.p-e.kr/tools/compression.html" />
+<meta property="og:site_name" content="영상·파일 정보 포털" />
+<meta property="og:image" content="https://netfile.p-e.kr/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "홈", "item": "https://netfile.p-e.kr/"}, {"@type": "ListItem", "position": 2, "name": "영상·파일 도구", "item": "https://netfile.p-e.kr/tools/"}, {"@type": "ListItem", "position": 3, "name": "파일 압축률 계산기", "item": "https://netfile.p-e.kr/tools/compression.html"}]}</script>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet" href="../css/page.css" />
+<link rel="icon" type="image/x-icon" href="../favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+<meta name="author" content="영상·파일 정보 포털" /><meta name="language" content="Korean" />
+</head>
+<body>
+<header class="site-header"><div class="inner">
+  <a href="index.html" class="logo">영상·파일<span>도구</span></a>
+      <nav>
+        <a href="index.html">도구 홈</a>
+        <a href="video-size.html">용량 계산</a>
+        <a href="transfer-time.html">전송 시간</a>
+        <a href="storage.html">저장공간</a>
+        <a href="codec.html">코덱 비교</a>
+        <a href="../index.html">웹하드 가이드</a>
+      </nav>
+</div></header>
+<section class="page-hero"><div class="inner"><p class="eyebrow">무료 온라인 도구</p><h1>파일 압축률 계산기</h1><p class="hero-sub">압축(인코딩) 전후 용량을 넣으면 절감률을 바로 계산합니다.</p></div></section>
+<section class="page-content"><div class="inner">
+<div class="calc-box">
+  <div class="calc-input">
+    <label for="cBefore">압축 전 크기(GB)</label>
+    <div class="calc-row"><input type="number" id="cBefore" min="0" step="0.1" value="30" /></div>
+    <label for="cAfter">압축 후 크기(GB)</label>
+    <div class="calc-row"><input type="number" id="cAfter" min="0" step="0.1" value="17" /></div>
+  </div>
+  <div class="calc-result">
+    <div class="calc-card net"><span class="calc-name">압축률</span><strong id="cRate" style="font-size:1.6rem">-</strong></div>
+    <div class="calc-card"><span class="calc-name">절약 용량</span><strong id="cSaved" style="font-size:1.6rem">-</strong></div>
+    <div class="calc-card"><span class="calc-name">압축비</span><strong id="cRatio" style="font-size:1.6rem">-</strong></div>
+  </div>
+</div>
+<h2 class="section-title" style="margin-top:48px;">압축률을 높이는 방법</h2>
+<div class="info-box"><ul>
+<li><b>코덱 변경</b> — H.264 → HEVC로 재인코딩하면 같은 화질에 약 40~50% 절감</li>
+<li><b>CRF 값 조정</b> — CRF 18(고화질)~23(균형)~28(저용량). 숫자가 클수록 용량이 줄고 화질이 떨어집니다</li>
+<li><b>해상도 다운스케일</b> — 4K를 1080p로 낮추면 용량이 크게 줄어듭니다</li>
+<li><b>불필요한 오디오/자막 트랙 제거</b> — 다국어 트랙만 정리해도 수백 MB 절약</li>
+</ul></div>
+<p class="tool-p">주의: 이미 압축된 영상을 다시 인코딩하면 화질이 한 번 더 손실됩니다(세대 손실). 원본은 따로 보관하고 사본만 압축하는 것이 안전합니다.</p>
+</div></section>
+<footer class="site-footer"><div class="inner">
+  <p class="footer-logo">영상·파일 정보 포털</p>
+  <nav class="footer-nav">
+    <a href="index.html">도구 홈</a><a href="video-size.html">용량 계산기</a><a href="transfer-time.html">전송 시간</a>
+    <a href="storage.html">저장공간</a><a href="compression.html">압축률</a><a href="codec.html">코덱 비교</a>
+    <a href="video-stutter.html">영상 끊김</a><a href="subtitle.html">자막 인코딩</a><a href="large-file.html">대용량 전송</a>
+    <a href="backup.html">백업·클라우드</a><a href="tv-play.html">TV 재생</a>
+  </nav>
+  <p class="footer-note">영상 코덱·용량·전송·백업에 대한 정보와 무료 계산기를 제공합니다.<br>일부 페이지에는 파일 저장 서비스 안내(제휴 링크)가 포함될 수 있습니다.</p>
+  <p class="footer-copy">© 2026 영상·파일 정보 포털</p>
+</div></footer>
+<script src="../js/tracker.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/tools.js"></script>
+</body></html>

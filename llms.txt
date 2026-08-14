@@ -23,5 +23,18 @@
 - [웹하드 오류 해결](https://netfile.p-e.kr/pages/trouble.html): 접속 불가, 다운로드 실패, 속도 저하 해결법
 - [넷파일 자주 묻는 질문 FAQ](https://netfile.p-e.kr/pages/faq.html): 가입·코인·요금·속도·환불·모바일 등 질문 12가지
 
+## 영상·파일 정보 포털 (무료 도구)
+- [도구 홈](https://netfile.p-e.kr/tools/): 영상·파일 계산기와 활용 가이드
+- [영상 용량 계산기](https://netfile.p-e.kr/tools/video-size.html): 길이·해상도·코덱으로 파일 크기 계산
+- [전송 시간 계산기](https://netfile.p-e.kr/tools/transfer-time.html): 다운로드·업로드 소요 시간
+- [저장공간 계산기](https://netfile.p-e.kr/tools/storage.html): 영상 편수별 필요 용량
+- [압축률 계산기](https://netfile.p-e.kr/tools/compression.html): 인코딩 전후 절감률
+- [코덱 비교](https://netfile.p-e.kr/tools/codec.html): H.264 vs HEVC vs AV1
+- [영상 끊김 해결](https://netfile.p-e.kr/tools/video-stutter.html): 4K 재생 문제 7가지
+- [자막 인코딩](https://netfile.p-e.kr/tools/subtitle.html): 자막 깨짐·SRT 변환
+- [대용량 파일 전송](https://netfile.p-e.kr/tools/large-file.html): 방법 7가지 비교
+- [백업·저장공간](https://netfile.p-e.kr/tools/backup.html): 3-2-1 원칙
+- [TV 재생](https://netfile.p-e.kr/tools/tv-play.html): USB·HDMI·DLNA·코덱
+
 ## 가입
 넷파일 신규 가입(2,000코인 지급): https://www.netfile.co.kr
