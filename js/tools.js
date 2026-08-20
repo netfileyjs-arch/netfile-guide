@@ -82,3 +82,103 @@
     calcC();
   }
 })();
+
+// ── 자막 인코딩 변환기 (브라우저 내 처리, 업로드 없음) ──
+(function () {
+  var fi = document.getElementById('subFile');
+  if (!fi) return;
+  var info = document.getElementById('subInfo'), opts = document.getElementById('subOpts');
+  var out = document.getElementById('subOut'), toSrt = document.getElementById('subToSrt');
+  var text = '', name = '', wasSmi = false, enc = '';
+
+  function decode(buf) {
+    try { return { t: new TextDecoder('utf-8', { fatal: true }).decode(buf), e: 'UTF-8' }; }
+    catch (e) {
+      try { return { t: new TextDecoder('euc-kr').decode(buf), e: 'CP949(EUC-KR)' }; }
+      catch (e2) { return { t: new TextDecoder('utf-8').decode(buf), e: '알 수 없음' }; }
+    }
+  }
+  function ms2srt(ms) {
+    var h = Math.floor(ms / 3600000), m = Math.floor(ms % 3600000 / 60000),
+        s = Math.floor(ms % 60000 / 1000), z = Math.floor(ms % 1000);
+    function p(n, l) { return String(n).padStart(l || 2, '0'); }
+    return p(h) + ':' + p(m) + ':' + p(s) + ',' + p(z, 3);
+  }
+  function smi2srt(src) {
+    var re = /<SYNC\s+Start\s*=\s*"?(\d+)"?[^>]*>([\s\S]*?)(?=<SYNC\s+Start|$)/gi, m, cues = [];
+    while ((m = re.exec(src)) !== null) {
+      var body = m[2].replace(/<br\s*\/?>/gi, '\n').replace(/<[^>]+>/g, '')
+                     .replace(/&nbsp;/gi, ' ').replace(/&amp;/gi, '&').trim();
+      cues.push({ t: parseInt(m[1], 10), x: body });
+    }
+    var o = [], n = 1;
+    for (var i = 0; i < cues.length; i++) {
+      if (!cues[i].x) continue;
+      var end = i + 1 < cues.length ? cues[i + 1].t : cues[i].t + 3000;
+      o.push(n++ + '\n' + ms2srt(cues[i].t) + ' --> ' + ms2srt(end) + '\n' + cues[i].x + '\n');
+    }
+    return o.join('\n');
+  }
+  fi.addEventListener('change', function () {
+    var f = fi.files && fi.files[0];
+    if (!f) return;
+    name = f.name;
+    var fr = new FileReader();
+    fr.onload = function () {
+      var d = decode(fr.result);
+      text = d.t; enc = d.e;
+      wasSmi = /\.smi$|\.sami$/i.test(name) || /<SYNC/i.test(text.slice(0, 4000));
+      toSrt.checked = wasSmi;
+      info.innerHTML = '<b style="color:var(--text)">' + name + '</b> · 감지된 인코딩: <b style="color:var(--accent)">' +
+        enc + '</b>' + (wasSmi ? ' · SMI 형식' : '');
+      opts.style.display = 'block';
+    };
+    fr.readAsArrayBuffer(f);
+  });
+  document.getElementById('subPrev').addEventListener('click', function () {
+    var t = (toSrt.checked && wasSmi) ? smi2srt(text) : text;
+    out.textContent = t.slice(0, 3000) + (t.length > 3000 ? '\n…(생략)' : '');
+    out.style.display = 'block';
+  });
+  document.getElementById('subGo').addEventListener('click', function () {
+    var t = (toSrt.checked && wasSmi) ? smi2srt(text) : text;
+    var nn = name.replace(/\.[^.]+$/, '') + ((toSrt.checked && wasSmi) ? '.srt' : name.match(/\.[^.]+$/) || '.srt');
+    var blob = new Blob(['﻿' + t], { type: 'text/plain;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = nn;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+  });
+})();
+
+// ── 계산기 결과 공유 링크 (URL 파라미터 저장/복원) ──
+(function () {
+  var MAP = { 'vMin': 'min', 'vRes': 'res', 'vCod': 'cod', 'tSize': 'size', 'tUnit': 'unit',
+              'tSpeed': 'speed', 'sCnt': 'cnt', 'sMin': 'smin', 'sRes': 'sres', 'sCod': 'scod',
+              'cBefore': 'before', 'cAfter': 'after' };
+  var ids = Object.keys(MAP).filter(function (i) { return document.getElementById(i); });
+  if (!ids.length) return;
+  var q = new URLSearchParams(location.search), changed = false;
+  ids.forEach(function (i) {
+    var v = q.get(MAP[i]);
+    if (v !== null) { document.getElementById(i).value = v; changed = true; }
+  });
+  if (changed) ids.forEach(function (i) {
+    var el = document.getElementById(i);
+    el.dispatchEvent(new Event(el.tagName === 'SELECT' ? 'change' : 'input', { bubbles: true }));
+  });
+  var box = document.querySelector('.calc-box');
+  if (!box) return;
+  var btn = document.createElement('button');
+  btn.type = 'button'; btn.className = 'share-btn'; btn.textContent = '🔗 이 결과 링크 복사';
+  btn.addEventListener('click', function () {
+    var p = new URLSearchParams();
+    ids.forEach(function (i) { p.set(MAP[i], document.getElementById(i).value); });
+    var url = location.origin + location.pathname + '?' + p.toString();
+    (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(function () {
+      btn.textContent = '✅ 링크가 복사되었습니다';
+      setTimeout(function () { btn.textContent = '🔗 이 결과 링크 복사'; }, 2000);
+    }).catch(function () { prompt('이 링크를 복사하세요', url); });
+  });
+  box.appendChild(btn);
+})();

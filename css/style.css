@@ -826,3 +826,33 @@ tr:last-child td { border-bottom: none; }
 .soft-note { font-size: 0.78rem !important; margin: 12px 0 0 !important; }
 .soft-note a { color: var(--text-muted); text-decoration: underline; }
 .calc-box .calc-input label { margin-top: 10px; display: block; }
+
+/* ── 통합 드롭다운 네비 ── */
+.mainnav { display: flex; align-items: center; gap: 6px; }
+.mainnav .nav-home { font-size: .875rem; font-weight: 500; color: var(--text-muted); padding: 8px 10px; }
+.mainnav .nav-home:hover { color: var(--accent); }
+.navgrp { position: relative; }
+.navtop { background: none; border: none; color: var(--text-muted); font-family: inherit; font-size: .875rem;
+  font-weight: 500; cursor: pointer; padding: 8px 10px; display: flex; align-items: center; gap: 4px; }
+.navtop i { font-style: normal; font-size: .7rem; opacity: .7; }
+.navgrp:hover .navtop, .navgrp.open .navtop { color: var(--accent); }
+.navsub { position: absolute; top: 100%; left: 0; min-width: 232px; background: var(--bg2);
+  border: 1px solid var(--border); border-radius: 12px; padding: 8px; display: none; z-index: 120;
+  box-shadow: 0 14px 40px rgba(0,0,0,.55); }
+.navgrp:hover .navsub, .navgrp.open .navsub { display: block; }
+.navsub a { display: block; padding: 9px 12px; font-size: .875rem; color: var(--text);
+  border-radius: 8px; white-space: nowrap; }
+.navsub a:hover { background: var(--bg3); color: var(--accent); }
+.navsub a.on { color: var(--accent); font-weight: 700; }
+@media (max-width: 768px) {
+  .site-header .inner { height: auto; padding-top: 10px; padding-bottom: 10px; flex-wrap: wrap; gap: 6px; }
+  .mainnav { flex-wrap: wrap; gap: 4px; width: 100%; }
+  .mainnav .btn-header-cta { width: 100%; text-align: center; margin-top: 4px; }
+  .navsub { position: static; min-width: 0; width: 100%; box-shadow: none; margin-top: 4px; }
+  .navgrp { flex: 1 1 46%; }
+  .navtop { width: 100%; justify-content: space-between; background: var(--bg2);
+    border: 1px solid var(--border); border-radius: 10px; }
+}
+.share-btn { display: block; width: 100%; margin-top: 14px; background: none; border: 1px dashed var(--border);
+  color: var(--text-muted); border-radius: 10px; padding: 11px; font-family: inherit; font-size: .85rem; cursor: pointer; }
+.share-btn:hover { border-color: var(--accent); color: var(--accent); }

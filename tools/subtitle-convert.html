@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>자막 인코딩 변환기 | SMI→SRT, CP949→UTF-8 무료 변환</title>
+<meta name="description" content="자막 파일을 올리면 브라우저에서 바로 UTF-8로 변환합니다. SMI를 SRT로 바꾸는 기능도 지원. 업로드 없이 내 PC에서만 처리됩니다." />
+<meta name="keywords" content="자막변환,자막인코딩변환,SMI를SRT로,CP949UTF-8,자막깨짐변환,SRT변환기" />
+<link rel="canonical" href="https://netfile.p-e.kr/tools/subtitle-convert.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="자막 인코딩 변환기 | SMI→SRT, CP949→UTF-8 무료 변환" />
+<meta property="og:description" content="자막 파일을 올리면 브라우저에서 바로 UTF-8로 변환합니다. SMI를 SRT로 바꾸는 기능도 지원. 업로드 없이 내 PC에서만 처리됩니다." />
+<meta property="og:url" content="https://netfile.p-e.kr/tools/subtitle-convert.html" />
+<meta property="og:site_name" content="영상·파일 정보 포털" />
+<meta property="og:image" content="https://netfile.p-e.kr/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "홈", "item": "https://netfile.p-e.kr/"}, {"@type": "ListItem", "position": 2, "name": "영상·파일 도구", "item": "https://netfile.p-e.kr/tools/"}, {"@type": "ListItem", "position": 3, "name": "자막 인코딩 변환기", "item": "https://netfile.p-e.kr/tools/subtitle-convert.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "자막 파일이 서버로 올라가나요?", "acceptedAnswer": {"@type": "Answer", "text": "아니요. 브라우저 안에서만 변환되며 파일이 외부로 전송되지 않습니다."}}, {"@type": "Question", "name": "SMI와 SRT 중 무엇이 나은가요?", "acceptedAnswer": {"@type": "Answer", "text": "SRT가 호환성이 훨씬 좋습니다. TV·모바일에서 자막이 안 나온다면 SRT로 변환해 보세요."}}]}</script>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet" href="../css/page.css" />
+<link rel="icon" type="image/x-icon" href="../favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+<meta name="author" content="영상·파일 정보 포털" /><meta name="language" content="Korean" />
+</head>
+<body>
+<header class="site-header"><div class="inner">
+  <a href="../index.html" class="logo">WEB<span>HARD</span>가이드</a>
+      <nav class="mainnav">
+        <a href="../index.html" class="nav-home">홈</a>
+        <div class="navgrp">
+          <button type="button" class="navtop">웹하드 가이드 <i>▾</i></button>
+          <div class="navsub">
+          <a href="../pages/webhard.html">웹하드란?</a>
+          <a href="../pages/compare.html">웹하드 순위 비교</a>
+          <a href="../pages/guide.html">웹하드 사용법</a>
+          <a href="../pages/coin.html">요금제·코인 정리</a>
+          <a href="../pages/coin-calculator.html">코인 계산기</a>
+          <a href="../pages/trouble.html">오류 해결</a>
+          <a href="../pages/faq.html">자주 묻는 질문</a>
+          <a href="../pages/free-download.html">무료 다운로드 안전</a>
+          </div>
+        </div>
+        <div class="navgrp">
+          <button type="button" class="navtop">영상·파일 도구 <i>▾</i></button>
+          <div class="navsub">
+          <a href="video-size.html">영상 용량 계산기</a>
+          <a href="transfer-time.html">전송 시간 계산기</a>
+          <a href="storage.html">저장공간 계산기</a>
+          <a href="compression.html">압축률 계산기</a>
+          <a href="bitrate.html">권장 비트레이트 표</a>
+          <a href="subtitle-convert.html" class="on">자막 인코딩 변환기</a>
+          <a href="codec.html" class="on">코덱 비교 H.264/HEVC/AV1</a>
+          <a href="video-stutter.html">4K 영상 끊김 해결</a>
+          <a href="subtitle.html">자막 깨짐 해결</a>
+          <a href="large-file.html">대용량 파일 전송</a>
+          <a href="backup.html">백업·저장공간 비교</a>
+          <a href="tv-play.html">TV에서 영상 재생</a>
+          </div>
+        </div>
+        <a href="#" class="btn-header-cta netfile-link">🎁 넷파일 2,000코인 무료가입</a>
+      </nav>
+</div></header>
+<section class="page-hero"><div class="inner"><p class="eyebrow">무료 온라인 도구</p><h1>자막 인코딩 변환기</h1><p class="hero-sub">자막 깨짐을 UTF-8 변환으로 해결합니다. 파일은 서버로 전송되지 않고 브라우저에서 처리됩니다.</p></div></section>
+<section class="page-content"><div class="inner">
+<div class="calc-box" style="text-align:left">
+  <label for="subFile" style="display:block;font-size:.85rem;color:var(--text-muted);margin-bottom:8px;">자막 파일 선택 (.srt / .smi / .ass / .vtt)</label>
+  <input type="file" id="subFile" accept=".srt,.smi,.sami,.ass,.ssa,.vtt,.txt"
+    style="width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:13px;" />
+  <div id="subInfo" style="margin-top:14px;color:var(--text-muted);font-size:.9rem;"></div>
+  <div id="subOpts" style="display:none;margin-top:14px;">
+    <label style="display:flex;align-items:center;gap:8px;color:var(--text);font-size:.92rem;">
+      <input type="checkbox" id="subToSrt" /> SMI를 SRT 형식으로 변환</label>
+    <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+      <button type="button" id="subGo" class="btn-primary" style="border:none;cursor:pointer;">UTF-8로 변환해 저장</button>
+      <button type="button" id="subPrev" class="btn-outline" style="border:1.5px solid var(--border);background:none;cursor:pointer;">미리보기</button>
+    </div>
+  </div>
+  <pre id="subOut" style="display:none;margin-top:16px;background:var(--bg);border:1px solid var(--border);border-radius:10px;
+    padding:14px;max-height:280px;overflow:auto;font-size:.82rem;color:var(--text-muted);white-space:pre-wrap;"></pre>
+  <p class="soft-note" style="margin-top:14px !important;">🔒 파일은 서버로 업로드되지 않으며 브라우저 안에서만 변환됩니다.</p>
+</div>
+<h2 class="section-title" style="margin-top:44px;">이 도구가 하는 일</h2>
+<div class="info-box"><ul>
+<li><b>인코딩 자동 감지</b> — UTF-8로 읽어보고 실패하면 CP949(EUC-KR)로 해석합니다</li>
+<li><b>UTF-8 저장</b> — 요즘 플레이어·TV가 가장 잘 읽는 형식으로 변환합니다</li>
+<li><b>SMI → SRT</b> — 구형 SMI 자막을 호환성 좋은 SRT로 바꿉니다</li>
+</ul></div>
+<p class="tool-p">변환해도 안 나온다면 파일명을 영상과 동일하게 맞췄는지 확인하세요. 원인별 정리는 <a href="subtitle.html">자막 깨짐 해결 가이드</a>에 있습니다.</p>
+</div></section>
+<footer class="site-footer"><div class="inner">
+  <p class="footer-logo">영상·파일 정보 포털</p>
+  <nav class="footer-nav">
+    <a href="index.html">도구 홈</a><a href="video-size.html">용량 계산기</a><a href="transfer-time.html">전송 시간</a>
+    <a href="storage.html">저장공간</a><a href="compression.html">압축률</a><a href="codec.html">코덱 비교</a>
+    <a href="video-stutter.html">영상 끊김</a><a href="subtitle.html">자막 인코딩</a><a href="large-file.html">대용량 전송</a>
+    <a href="backup.html">백업·클라우드</a><a href="tv-play.html">TV 재생</a>
+  </nav>
+  <p class="footer-note">영상 코덱·용량·전송·백업에 대한 정보와 무료 계산기를 제공합니다.<br>일부 페이지에는 파일 저장 서비스 안내(제휴 링크)가 포함될 수 있습니다.</p>
+  <p class="footer-copy">© 2026 영상·파일 정보 포털</p>
+</div></footer>
+<script src="../js/tracker.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/tools.js"></script>
+</body></html>

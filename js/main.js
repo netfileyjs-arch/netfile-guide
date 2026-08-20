@@ -25,3 +25,16 @@ document.querySelectorAll('.point-card, .guide-card, .step-item, .info-box, .faq
   el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
   observer.observe(el);
 });
+
+// ── 통합 네비 드롭다운(모바일 탭 대응) ──
+document.querySelectorAll('.navtop').forEach(function (b) {
+  b.addEventListener('click', function (e) {
+    e.stopPropagation();
+    var g = b.closest('.navgrp'), was = g.classList.contains('open');
+    document.querySelectorAll('.navgrp').forEach(function (x) { x.classList.remove('open'); });
+    if (!was) g.classList.add('open');
+  });
+});
+document.addEventListener('click', function () {
+  document.querySelectorAll('.navgrp').forEach(function (x) { x.classList.remove('open'); });
+});

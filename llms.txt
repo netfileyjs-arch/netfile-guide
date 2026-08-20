@@ -29,6 +29,8 @@
 - [전송 시간 계산기](https://netfile.p-e.kr/tools/transfer-time.html): 다운로드·업로드 소요 시간
 - [저장공간 계산기](https://netfile.p-e.kr/tools/storage.html): 영상 편수별 필요 용량
 - [압축률 계산기](https://netfile.p-e.kr/tools/compression.html): 인코딩 전후 절감률
+- [자막 인코딩 변환기](https://netfile.p-e.kr/tools/subtitle-convert.html): SMI→SRT, CP949→UTF-8 브라우저 변환
+- [권장 비트레이트 표](https://netfile.p-e.kr/tools/bitrate.html): 유튜브 업로드·보관용 화질별 기준
 - [코덱 비교](https://netfile.p-e.kr/tools/codec.html): H.264 vs HEVC vs AV1
 - [영상 끊김 해결](https://netfile.p-e.kr/tools/video-stutter.html): 4K 재생 문제 7가지
 - [자막 인코딩](https://netfile.p-e.kr/tools/subtitle.html): 자막 깨짐·SRT 변환
