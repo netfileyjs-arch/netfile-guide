@@ -856,3 +856,16 @@ tr:last-child td { border-bottom: none; }
 .share-btn { display: block; width: 100%; margin-top: 14px; background: none; border: 1px dashed var(--border);
   color: var(--text-muted); border-radius: 10px; padding: 11px; font-family: inherit; font-size: .85rem; cursor: pointer; }
 .share-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── KPI 경쟁 비교 ── */
+.kpi-compare { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.kpi-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin: 0 0 28px; }
+.kpi-s { background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 18px 12px; text-align: center; }
+.kpi-s b { display: block; font-size: 1.8rem; font-weight: 800; color: var(--accent); line-height: 1.1; }
+.kpi-s span { font-size: .8rem; color: var(--text-muted); }
+.kpi-why { background: var(--bg3); border: 1px solid var(--accent); border-radius: 16px; padding: 28px; margin-top: 26px; text-align: center; }
+.kpi-why h3 { font-size: 1.2rem; margin-bottom: 12px; }
+.kpi-why p { color: var(--text-muted); line-height: 1.9; margin-bottom: 20px; }
+.kpi-why b { color: var(--accent); }
+.kpi-note { font-size: .8rem !important; margin: 14px 0 0 !important; }
+@media (max-width: 640px) { .kpi-stats { grid-template-columns: repeat(2,1fr); } }
