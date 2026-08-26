@@ -182,3 +182,83 @@
   });
   box.appendChild(btn);
 })();
+
+// ── 계산 결과 이미지로 저장 (커뮤니티 공유용) ──
+(function () {
+  var box = document.querySelector('.calc-box');
+  if (!box || !document.querySelector('.calc-result')) return;
+
+  function draw() {
+    var W = 1000, H = 560, c = document.createElement('canvas');
+    c.width = W; c.height = H;
+    var g = c.getContext('2d');
+    // 배경
+    var grad = g.createLinearGradient(0, 0, 0, H);
+    grad.addColorStop(0, '#0d1117'); grad.addColorStop(1, '#1b2440');
+    g.fillStyle = grad; g.fillRect(0, 0, W, H);
+    g.fillStyle = '#ff6b2b'; g.fillRect(0, 0, W, 6);
+    // 제목
+    var title = (document.querySelector('.page-hero h1') || {}).textContent || '계산 결과';
+    g.fillStyle = '#fff'; g.font = 'bold 40px Pretendard, Malgun Gothic, sans-serif';
+    g.fillText(title.trim(), 56, 92);
+    // 입력 요약
+    var inputs = [];
+    box.querySelectorAll('.calc-input label').forEach(function (l) {
+      var f = l.getAttribute('for'), el = f && document.getElementById(f);
+      if (!el) return;
+      var v = el.tagName === 'SELECT' ? el.options[el.selectedIndex].textContent : el.value;
+      var sib = el.parentElement.querySelector('select');
+      if (el.tagName === 'INPUT' && sib && sib !== el) v += ' ' + sib.options[sib.selectedIndex].textContent;
+      inputs.push(l.textContent.replace(/\s+/g, ' ').trim() + ': ' + v);
+    });
+    g.fillStyle = '#8b98a5'; g.font = '22px Pretendard, Malgun Gothic, sans-serif';
+    g.fillText(inputs.slice(0, 3).join('   ·   '), 56, 132);
+    // 결과 카드
+    var cards = [].slice.call(document.querySelectorAll('.calc-result .calc-card')).slice(0, 3);
+    var cw = (W - 112 - (cards.length - 1) * 20) / cards.length, x = 56;
+    cards.forEach(function (card) {
+      var isNet = card.classList.contains('net');
+      g.fillStyle = isNet ? 'rgba(255,107,43,.14)' : 'rgba(255,255,255,.06)';
+      if (g.roundRect) { g.beginPath(); g.roundRect(x, 176, cw, 190, 16); g.fill(); }
+      else g.fillRect(x, 176, cw, 190);
+      if (isNet) { g.strokeStyle = '#ff6b2b'; g.lineWidth = 2;
+        if (g.roundRect) { g.beginPath(); g.roundRect(x, 176, cw, 190, 16); g.stroke(); } }
+      var name = (card.querySelector('.calc-name') || {}).textContent || '';
+      var val = (card.querySelector('strong') || {}).textContent || '';
+      var unit = (card.querySelector('.calc-unit') || {}).textContent || '';
+      g.fillStyle = '#8b98a5'; g.font = '19px Pretendard, Malgun Gothic, sans-serif';
+      g.fillText(name.replace(/\s+/g, ' ').trim().slice(0, 18), x + 22, 214);
+      g.fillStyle = isNet ? '#ff6b2b' : '#e6edf3';
+      g.font = 'bold 46px Pretendard, Malgun Gothic, sans-serif';
+      g.fillText(val + unit, x + 22, 292);
+      x += cw + 20;
+    });
+    // 하단 문구
+    var save = document.querySelector('.calc-save');
+    if (save) {
+      g.fillStyle = '#e6edf3'; g.font = 'bold 26px Pretendard, Malgun Gothic, sans-serif';
+      g.fillText(save.textContent.replace(/\s+/g, ' ').trim().slice(0, 42), 56, 424);
+    }
+    g.fillStyle = '#8b98a5'; g.font = '20px Pretendard, Malgun Gothic, sans-serif';
+    g.fillText('netfile.p-e.kr/tools · 무료 온라인 계산기', 56, 496);
+    return c;
+  }
+
+  var btn = document.createElement('button');
+  btn.type = 'button'; btn.className = 'share-btn'; btn.textContent = '🖼️ 결과 이미지로 저장';
+  btn.addEventListener('click', function () {
+    try {
+      var c = draw();
+      c.toBlob(function (blob) {
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'calc-result.png';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+      });
+      btn.textContent = '✅ 이미지를 저장했습니다';
+      setTimeout(function () { btn.textContent = '🖼️ 결과 이미지로 저장'; }, 2200);
+    } catch (e) { btn.textContent = '⚠️ 저장 실패 (브라우저 미지원)'; }
+  });
+  box.appendChild(btn);
+})();

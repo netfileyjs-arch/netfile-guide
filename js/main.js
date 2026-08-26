@@ -38,3 +38,18 @@ document.querySelectorAll('.navtop').forEach(function (b) {
 document.addEventListener('click', function () {
   document.querySelectorAll('.navgrp').forEach(function (x) { x.classList.remove('open'); });
 });
+
+// ── 라이트/다크 모드 토글 ──
+(function () {
+  var b = document.getElementById('themeBtn');
+  if (!b) return;
+  function icon() { b.textContent = document.documentElement.getAttribute('data-theme') === 'light' ? '☀️' : '🌙'; }
+  icon();
+  b.addEventListener('click', function () {
+    var light = document.documentElement.getAttribute('data-theme') === 'light';
+    if (light) document.documentElement.removeAttribute('data-theme');
+    else document.documentElement.setAttribute('data-theme', 'light');
+    try { localStorage.setItem('nf_theme', light ? 'dark' : 'light'); } catch (e) {}
+    icon();
+  });
+})();

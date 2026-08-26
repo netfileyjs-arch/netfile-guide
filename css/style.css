@@ -22,7 +22,31 @@
   --radius: 8px;
   --max-w: 1080px;
   --transition: 0.2s ease;
+  --header-bg: rgba(13, 17, 23, 0.92);
+  --shadow-c: rgba(0,0,0,.55);
 }
+
+/* ── 라이트 모드 ── */
+html[data-theme="light"] {
+  --bg:        #ffffff;
+  --bg2:       #f6f8fb;
+  --bg3:       #eef2f7;
+  --text:      #1f2937;
+  --text-muted:#5b6572;
+  --border:    #dde4ec;
+  --green:     #1a7f37;
+  --red:       #d1242f;
+  --header-bg: rgba(255,255,255,0.92);
+  --shadow-c:  rgba(15,30,60,.14);
+}
+html[data-theme="light"] body { background: var(--bg); color: var(--text); }
+html[data-theme="light"] .hero h1,
+html[data-theme="light"] .section-title,
+html[data-theme="light"] .point-card h3,
+html[data-theme="light"] .guide-card h3 { color: #111827; }
+html[data-theme="light"] .navsub { box-shadow: 0 14px 40px var(--shadow-c); }
+html[data-theme="light"] .poster { background: linear-gradient(135deg,#e8eef6,#dbe4f0); }
+html[data-theme="light"] .exit-box { box-shadow: 0 20px 60px var(--shadow-c); }
 
 /* ── 리셋 ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -51,7 +75,7 @@ img { max-width: 100%; display: block; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(13, 17, 23, 0.92);
+  background: var(--header-bg);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
@@ -869,3 +893,41 @@ tr:last-child td { border-bottom: none; }
 .kpi-why b { color: var(--accent); }
 .kpi-note { font-size: .8rem !important; margin: 14px 0 0 !important; }
 @media (max-width: 640px) { .kpi-stats { grid-template-columns: repeat(2,1fr); } }
+
+/* ── 테마 토글 버튼 ── */
+.theme-btn { background: none; border: 1px solid var(--border); color: var(--text-muted);
+  border-radius: 20px; width: 34px; height: 34px; cursor: pointer; font-size: .95rem; line-height: 1;
+  display: inline-flex; align-items: center; justify-content: center; transition: border-color var(--transition), color var(--transition); }
+.theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── 웹하드 비교 순위 카드 ── */
+.ranking { background: var(--bg2); border-bottom: 1px solid var(--border); }
+.rk-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.rk-card { position: relative; background: var(--bg); border: 1px solid var(--border);
+  border-radius: 16px; padding: 22px 20px 20px; display: flex; flex-direction: column; }
+.rk-card.rk-top { border: 2px solid var(--accent); box-shadow: 0 10px 34px rgba(255,107,43,.22); }
+.rk-num { position: absolute; top: 14px; left: 14px; width: 26px; height: 26px; border-radius: 8px;
+  background: var(--bg3); color: var(--text-muted); font-size: .82rem; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; }
+.rk-top .rk-num { background: var(--accent); color: #fff; }
+.rk-logo { height: 58px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px;
+  font-size: 1.25rem; font-weight: 800; color: var(--text-muted); letter-spacing: -.02em; }
+.rk-logo-nf { flex-direction: column; gap: 2px; color: var(--accent); font-size: 1.5rem; }
+.rk-logo-nf em { font-style: normal; font-size: .62rem; letter-spacing: .22em; color: var(--text-muted); }
+.rk-card h3 { font-size: 1.05rem; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.rk-badge-best { background: var(--accent); color: #fff; font-size: .66rem; font-weight: 800;
+  padding: 3px 8px; border-radius: 20px; }
+.rk-spec { list-style: none; padding: 0; margin: 0 0 18px; display: grid; gap: 8px; flex: 1; }
+.rk-spec li { background: var(--bg2); border-radius: 9px; padding: 9px 11px; font-size: .84rem; }
+.rk-spec li b { display: block; color: var(--accent); font-size: .88rem; }
+.rk-spec li span { color: var(--text-muted); font-size: .76rem; }
+.rk-spec-dim li b { color: var(--text); }
+.rk-spec li.rk-unknown b { color: var(--text-muted); }
+.rk-go { display: block; text-align: center; padding: 11px; border-radius: 9px;
+  border: 1px solid var(--border); color: var(--text); font-size: .88rem; font-weight: 600;
+  transition: border-color var(--transition), color var(--transition); }
+.rk-go:hover { border-color: var(--accent); color: var(--accent); }
+.rk-go-primary { background: var(--accent); border-color: var(--accent); color: #fff !important; font-weight: 700; }
+.rk-go-primary:hover { background: var(--accent2); border-color: var(--accent2); }
+@media (max-width: 900px) { .rk-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .rk-grid { grid-template-columns: 1fr; } }
