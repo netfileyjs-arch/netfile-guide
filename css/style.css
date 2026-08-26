@@ -931,3 +931,5 @@ tr:last-child td { border-bottom: none; }
 .rk-go-primary:hover { background: var(--accent2); border-color: var(--accent2); }
 @media (max-width: 900px) { .rk-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .rk-grid { grid-template-columns: 1fr; } }
+.rk-card h3:empty { display: none; }
+.rk-card h3 { justify-content: center; margin-top: -4px; }
