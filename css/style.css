@@ -933,3 +933,32 @@ tr:last-child td { border-bottom: none; }
 @media (max-width: 560px) { .rk-grid { grid-template-columns: 1fr; } }
 .rk-card h3:empty { display: none; }
 .rk-card h3 { justify-content: center; margin-top: -4px; }
+
+/* ── 라이트 모드: 흰색 텍스트 보정 ── */
+html[data-theme="light"] .logo,
+html[data-theme="light"] .exit-box h3,
+html[data-theme="light"] .page-hero h1,
+html[data-theme="light"] .info-box h3,
+html[data-theme="light"] .step-body h4,
+html[data-theme="light"] .why-card h3,
+html[data-theme="light"] .tip-card h3,
+html[data-theme="light"] .term-card h3,
+html[data-theme="light"] .persona-card h3,
+html[data-theme="light"] .perk-card h3,
+html[data-theme="light"] .rk-card h3,
+html[data-theme="light"] .kpi-why h3,
+html[data-theme="light"] .step h3,
+html[data-theme="light"] .problem-item h4 { color: var(--text); }
+html[data-theme="light"] .term-card h3 { color: var(--accent); }
+/* 어두운 배경 위 요소는 흰색 유지 */
+html[data-theme="light"] .cta-banner h2,
+html[data-theme="light"] .btn-primary,
+html[data-theme="light"] .btn-cta,
+html[data-theme="light"] .badge,
+html[data-theme="light"] .tag,
+html[data-theme="light"] .step .n,
+html[data-theme="light"] .x2-badge,
+html[data-theme="light"] .rk-badge-best,
+html[data-theme="light"] .btn-header-cta,
+html[data-theme="light"] .poster-cap { color: #fff; }
+html[data-theme="light"] .hero-bg-number { color: rgba(255,107,43,.08); }
