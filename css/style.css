@@ -962,3 +962,7 @@ html[data-theme="light"] .rk-badge-best,
 html[data-theme="light"] .btn-header-cta,
 html[data-theme="light"] .poster-cap { color: #fff; }
 html[data-theme="light"] .hero-bg-number { color: rgba(255,107,43,.08); }
+.rk-logo img { max-height: 34px; width: auto; object-fit: contain; }
+html[data-theme="light"] .rk-logo img { filter: none; }
+.rk-spec li.rk-meta b { color: var(--text-muted); font-weight: 600; }
+.rk-spec li.rk-meta { background: transparent; border: 1px dashed var(--border); }
