@@ -53,3 +53,35 @@ document.addEventListener('click', function () {
     icon();
   });
 })();
+
+// ── 경쟁 웹하드 혜택 자동 최신화 (서버가 주 1회 수집) ──
+(function () {
+  var grid = document.querySelector('.rk-grid');
+  if (!grid) return;
+  var OK = /포인트|코인|쿠폰|무제한|무료|가입|출석|정액|\d+\s*원/;
+  fetch('https://sport.p-e.kr/nfg/webhards')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      var map = {};
+      (d.sites || []).forEach(function (s) { map[s.name] = s; });
+      grid.querySelectorAll('.rk-card:not(.rk-top)').forEach(function (card) {
+        var name = (card.querySelector('h3') || {}).textContent;
+        var s = name && map[name.trim()];
+        if (!s) return;
+        var good = (s.benefits || []).filter(function (b) { return OK.test(b) && b.length <= 46; });
+        if (!good.length) return;             // 품질 미달이면 큐레이션 문구 유지
+        var lis = card.querySelectorAll('.rk-spec li:not(.rk-meta)');
+        good.slice(0, lis.length).forEach(function (txt, i) {
+          var b = lis[i].querySelector('b'), sp = lis[i].querySelector('span');
+          if (b) b.textContent = txt;
+          if (sp) sp.textContent = '사이트 안내 문구 · ' + (d.checked_kst || '자동 수집');
+        });
+        card.setAttribute('data-auto', '1');
+      });
+      var note = document.querySelector('.ranking .table-note');
+      if (note && d.checked_kst) note.innerHTML =
+        '※ 각 서비스 혜택은 해당 사이트에 공개된 안내 문구를 <b>주 1회 자동 수집</b>해 반영합니다(최근 갱신 ' +
+        d.checked_kst + '). 정책은 수시로 변경될 수 있으며, 로고는 각 사의 상표로 비교 목적에만 사용했습니다.';
+    })
+    .catch(function () {});
+})();
