@@ -1,0 +1,55 @@
+name: IndexNow 색인 제출
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**.html'
+      - 'sitemap.xml'
+  workflow_dispatch:
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 사이트맵 URL 수집 후 IndexNow 제출
+        run: |
+          python3 - <<'PY'
+          import json, re, urllib.request, os
+
+          KEY = "37f60c7782a549e6a91d601999ae6a61"
+          HOST = "netfile.p-e.kr"
+
+          xml = open("sitemap.xml", encoding="utf-8").read()
+          urls = re.findall(r"<loc>([^<]+)</loc>", xml)
+          print(f"제출 대상: {len(urls)}개 URL")
+
+          payload = json.dumps({
+              "host": HOST,
+              "key": KEY,
+              "keyLocation": f"https://{HOST}/{KEY}.txt",
+              "urlList": urls,
+          }, ensure_ascii=False).encode("utf-8")
+
+          endpoints = [
+              ("네이버", "https://searchadvisor.naver.com/indexnow"),
+              ("IndexNow", "https://api.indexnow.org/indexnow"),
+          ]
+          fail = 0
+          for name, ep in endpoints:
+              req = urllib.request.Request(
+                  ep, data=payload,
+                  headers={"Content-Type": "application/json; charset=utf-8"})
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as r:
+                      print(f"  {name}: HTTP {r.status}")
+              except Exception as e:
+                  code = getattr(e, "code", None)
+                  print(f"  {name}: {code or e}")
+                  # 202/200 외 응답은 경고만 (색인 제출 실패가 배포를 막지 않도록)
+                  if code not in (200, 202):
+                      fail += 1
+          print("완료" if fail == 0 else f"일부 실패({fail})")
+          PY
