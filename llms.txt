@@ -1,6 +1,3 @@
-# 넷파일 웹하드 가이드 (이전됨)
+# 이전 안내
 
-> 이 사이트의 모든 내용은 https://avbom.co.kr/webhard/ 로 옮겼습니다.
-
-- [웹하드 가이드](https://avbom.co.kr/webhard/)
-- [전체 안내(llms.txt)](https://avbom.co.kr/llms.txt)
+이 사이트(netfile.p-e.kr)는 https://webhard.avbom.co.kr/ 로 옮겼습니다.

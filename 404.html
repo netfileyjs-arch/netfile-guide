@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html lang="ko"><head><meta charset="UTF-8"><title>AVBom 웹하드 가이드로 이동</title>
-<script>(function(){var p=location.pathname,u='/webhard/',m;
-if((m=p.match(/^\/pages\/([\w-]+)\.html$/)))u='/webhard/'+m[1];
-else if((m=p.match(/^\/tools\/([\w-]+)\.html$/)))u=m[1]==='index'?'/webhard/tools':'/webhard/tools/'+m[1];
-location.replace('https://avbom.co.kr'+u);})();</script>
+<html lang="ko"><head><meta charset="UTF-8"><title>봄 웹하드 가이드로 이전</title>
+<script>(function(){var p=location.pathname,b="https://webhard.avbom.co.kr",u="/",m;
+if((m=p.match(/^\/pages\/([\w-]+)\.html$/)))u="/"+m[1];
+else if((m=p.match(/^\/tools\/([\w-]+)\.html$/)))u="/tools/"+m[1];
+else if(/^\/tools\/?$/.test(p))u="/tools";
+location.replace(b+u+location.hash);})();</script>
+<meta http-equiv="refresh" content="1; url=https://webhard.avbom.co.kr/">
 </head><body style="font-family:system-ui,sans-serif;padding:40px 16px;text-align:center">
-<p><a href="https://avbom.co.kr/webhard/">AVBom 웹하드 가이드</a>로 옮겼습니다.</p></body></html>
+<p>이 사이트는 <a href="https://webhard.avbom.co.kr/">봄 웹하드 가이드(webhard.avbom.co.kr)</a>로 옮겼습니다.</p>
+</body></html>
